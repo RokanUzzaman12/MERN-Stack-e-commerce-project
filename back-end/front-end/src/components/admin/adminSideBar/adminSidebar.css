@@ -1,0 +1,43 @@
+.side-bar {
+    background: var(--bgcolor);
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 238px;
+    color: white;
+    height: 100%;
+}
+
+.product-button{
+    cursor: pointer;
+}
+.nav-icon{
+    font-size: 11px;
+    margin-left: 10px;
+}
+
+#childMenu1{
+    display: none;
+}
+
+ul.childNav {
+    margin-left: 20px;
+}
+
+ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+ul li a:hover{
+    text-decoration: none;
+    color: lightgray;
+}
+
+
+
+
+
+
+
+

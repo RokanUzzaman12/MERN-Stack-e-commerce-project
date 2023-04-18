@@ -1,0 +1,42 @@
+.site-cart-body {
+    width: 109px;
+    height: 110px;
+    background: var(--bgcolor);
+    color: white;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    z-index: 1;
+    border-radius: 7px 0px 0px 7px;
+}
+
+.item-quantity {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+
+.quantity{
+    padding-left: 10px;
+    font-weight: 700;
+}
+
+.amount {
+    width: 83px;
+    height: 25px;
+    background: white;
+    margin: 0 auto;
+    color: black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.amount-text{
+
+}

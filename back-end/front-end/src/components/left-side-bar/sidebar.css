@@ -1,0 +1,63 @@
+.side-bar {
+    background: var(--bgcolor);
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 238px;
+    color: white;
+    height: 100%;
+}
+
+
+.search-by-name {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.search-by-name label {
+    display: block;
+    font-weight: 700;
+}
+.search-by-name input {
+    display: block;
+    margin: 5px 0px 5px 0px;
+    width: 165px;
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+    caret-shape: block;
+    
+}
+
+
+.search-by-name input[type=text]:focus{
+    border: none;
+    outline: none;
+}
+
+.search-by-name input[type=text]::placeholder{
+    font-size: 14px;
+}
+
+.search-by-other {
+    margin: 15px 0px 5px 20px;
+}
+
+.search-by-other p {
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.search-by-other ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.search-by-other ul li {
+    padding: 2.5px 0px 2.5px 0px;
+}
+
+.search-by-other ul li input{ 
+    
+}
+

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap');
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+.margin-top-right {
+    margin-top: 75px;
+    
+}
+:root{
+    --bgcolor: linear-gradient(120deg, #074786 0%, #2a86e0 100%);
+    --bghover:linear-gradient(120deg, #2a86e0 0%, #074786 100%);
+
+    --yellow-bgcolor: linear-gradient(120deg, #ffcc00 0%, #ffff00 100%);
+    --text-gradient: linear-gradient(120deg, #eee 0%, #333 100%);
+}
