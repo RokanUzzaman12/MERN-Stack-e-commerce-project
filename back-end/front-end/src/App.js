@@ -7,6 +7,8 @@ import NotFound from "./components/NotFound";
 import AdminIndex from './components/admin/AdminIndex';
 import LogIn from './components/login/LogIn';
 import Register from './components/register/Register';
+import AboutUs from './components/static-pages/AboutUs';
+import ContactUs from './components/static-pages/ContactUs';
 import AuthProtectRoutes from './components/auth/AuthProtectRoutes';
 import AddProducts from './components/admin/product/addProduct/AddProducts';
 import ProductList from './components/admin/product/productList/ProductList';
@@ -36,7 +38,9 @@ function App() {
         <Route path={routerName.home} element={<Home/>}/>
         <Route path={routerName.logIn} element={<LogIn/>}/>
         <Route path={routerName.signUp} element={<Register/>}/>
-        <Route path={`${routerName.test}/:id`} element = {<ProductDetailsForClient/>}/>
+        <Route path={routerName.aboutUs} element={<AboutUs/>}/>
+        <Route path={routerName.contactUs} element={<ContactUs/>}/>
+        <Route path={`/:slug`} element = {<ProductDetailsForClient/>}/>
         <Route element={<AuthProtectRoutes/>}>
           <Route path={routerName.cart} element={<Cart/>}/>
         </Route>

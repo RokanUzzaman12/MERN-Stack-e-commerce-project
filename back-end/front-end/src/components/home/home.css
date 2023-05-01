@@ -1,7 +1,15 @@
 
 
-.home-container{
-    padding: 2rem 4rem;
+
+.home-container {
+    margin: 70px -12px 0px 226px;
+    /* width: 100%; */
+}
+
+#main_video{
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
 }
 
 .home-container h2{
@@ -50,8 +58,8 @@
     height: 400px;
     /* box-shadow: -5px -5px 10px rgb(255, 255, 255, 0.5), 2px 2px 5px rgb(94, 104, 121, 0.3); */
     box-shadow: -5px -5px 10px rgb(7, 71, 134, 0.5), 2px 2px 5px rgb(42, 134, 224, 0.3);
-    
     position:relative;
+    cursor: pointer;
 }
 
 .product h3 {

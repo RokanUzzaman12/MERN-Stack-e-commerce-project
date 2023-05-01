@@ -25,6 +25,11 @@ const productSchema = new Schema({
     slug:{
         type:String,
         default:null
+    },
+    
+    brand:{
+        type:String,
+        default:''
     }
 
     

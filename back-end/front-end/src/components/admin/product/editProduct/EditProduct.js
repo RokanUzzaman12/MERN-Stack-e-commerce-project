@@ -3,6 +3,7 @@ import { useGetSingleProductQuery, useUpdateProductMutation } from "../../../../
 import { useParams } from 'react-router-dom'
 import { useState,useEffect,useRef } from "react"
 import { toast } from 'react-toastify'
+import Multiselect from 'multiselect-react-dropdown';
 
 const EditProduct = () => {
     let fileRef = useRef(null)
@@ -15,20 +16,16 @@ const EditProduct = () => {
         image:'',
         description:'',
         price:0,
+        brand:''
     }
 
-    let productData = {
-        name:'',
-        description:'',
-        price:'',
-        image:''
-    }
     let verificationData = {
         nameError:'',
         descriptionError:'',
         priceError:'',
         imageError:''
     }
+    let options = ['potion1','option2','option3','option4']
     // const [product, setProduct] = useState(productData)
     const [verification,setVerification] = useState(verificationData)
 
@@ -66,6 +63,11 @@ const EditProduct = () => {
         }
 
 
+    }
+
+    const onSelect = (selectedList, selectedItem)=>{
+        console.log('list',selectedList)
+        console.log('item',selectedItem)
     }
 
     const [editItem,setEditItem] = useState(initialState)
@@ -108,6 +110,19 @@ const EditProduct = () => {
                                                 <input type="number" className="form-control mt-1" placeholder="Product Price" value={editItem.price} onChange={(e)=>setEditItem({...editItem,price:e.target.value})} />
                                                 <small className="text-danger">{verification.priceError?verification.priceError:''} </small>
                                             </div>
+                                            
+                                            <div className="form-group mt-3">
+                                                <label >Brand Name</label>
+                                                <Multiselect
+                                                    isObject={false}
+                                                    singleSelect={true}
+                                                    options={options}
+                                                    onSelect={onSelect}
+                                                />
+                                            </div>
+
+
+                                            
 
                                             <div className="form-group mt-3">
                                                 <label >Product Image</label>

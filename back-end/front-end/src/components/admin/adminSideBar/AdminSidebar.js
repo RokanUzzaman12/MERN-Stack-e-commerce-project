@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import routes from '../../../routes.js'
 import './adminSidebar.css'
 const AdminSidebar = () => {
-
+    
     let navData = [
         {
             id: 1,
@@ -64,7 +64,6 @@ const AdminSidebar = () => {
     // }
 
     let handelSubNav = ()=>{
-        console.log('good to go')
         setShow(true)
     }
 
@@ -72,7 +71,6 @@ const AdminSidebar = () => {
         if(show == false){
             setShow(!show)
         }
-        console.log('false')
         let tempData = navData
         let subNavIndex = tempData.findIndex((temp)=>temp.id == navId)
 

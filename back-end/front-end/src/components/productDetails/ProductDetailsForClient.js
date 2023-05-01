@@ -1,5 +1,5 @@
 
-import { useGetSingleProductQuery } from "../../features/productApi"
+import { useGetSingleProductBySlugQuery } from "../../features/productApi"
 import { useParams } from 'react-router-dom'
 import ReactImageMagnify from 'react-image-magnify';
 // import './productDetails.css'
@@ -7,8 +7,8 @@ import ReactImageMagnify from 'react-image-magnify';
 // import image1200 from '../../../../images/1200.jpg'
 const ProductDetailsForClient = () => {
 
-    const { productId } = useParams()
-    const { data, error, isLoading } = useGetSingleProductQuery(productId)
+    const { slug } = useParams()
+    const { data, error, isLoading } = useGetSingleProductBySlugQuery(slug)
     let image300 = data?`${process.env.REACT_APP_BASE_URL}/uploads/${data.data.image}`:''
     let image1200 = data?`${process.env.REACT_APP_BASE_URL}/uploads/${data.data.image}`:''
     
@@ -59,7 +59,11 @@ const ProductDetailsForClient = () => {
                                  {
                                  data && 
                                     <div className="product-description">
-                                        {data.data.description}
+                                       <p>{data.data.description}</p> 
+                                        <p><b>Name:</b> <span>{data.data.name}</span> </p> 
+                                        <p><b>Brand:</b> <span>{data.data.brand}</span> </p> 
+                                        <p><b>Price:</b> <span>{data.data.price}</span> </p> 
+                                        
                                     </div>
                                 }
                             </div>

@@ -15,11 +15,17 @@ const Nav = () => {
                 </div>
 
                 <div className="col-md-4 nav-item" >
+                    <Link className="p-2" to='/'>Home</Link>
+                    <Link className="p-2" to={routesName.aboutUs}>About Us</Link>
+                    <Link className="p-2" to={routesName.contactUs}>Contact Us</Link>
+                </div>
+
+                <div className="col-md-2 nav-item" >
                     <Link className="p-2" to={routesName.logIn}>LogIn</Link>
                     <Link to={routesName.signUp}>Register</Link>
                 </div>
                 
-                <div className="col-md-4">
+                <div className="col-md-2">
                     
                     <Link to={routesName.cart}>
                     <div className="nav-bag">

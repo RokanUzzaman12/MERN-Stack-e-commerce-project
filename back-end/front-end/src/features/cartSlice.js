@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 const initialState = {
     cartItems:localStorage.getItem('cartItems')?JSON.parse(localStorage.getItem('cartItems')):[],
     totalQuantity:0,
@@ -29,14 +29,14 @@ const cartSlice = createSlice({
         removeSingleItemFromCart:(state,action)=>{
             
             const index = state.cartItems.findIndex((item)=>item._id === action.payload._id)
-            if(index != -1){
+            if(index !== -1){
                 state.cartItems.splice(index,1)
                 localStorage.setItem("cartItems",JSON.stringify(state.cartItems))
             }
         },
         increaseItemQuantity:(state,action)=>{
           const index =   state.cartItems.findIndex((item)=>item._id === action.payload._id)
-          if(index != -1){
+          if(index !== -1){
             state.cartItems[index].cartQuantity +=1
             localStorage.setItem("cartItems",JSON.stringify(state.cartItems))
           }
@@ -44,8 +44,8 @@ const cartSlice = createSlice({
         },
         decreaseItemQuantity:(state,action)=>{
             const index =   state.cartItems.findIndex((item)=>item._id === action.payload._id)
-            if(index != -1){
-                if(state.cartItems[index].cartQuantity == 1){
+            if(index !== -1){
+                if(state.cartItems[index].cartQuantity === 1){
                     state.cartItems.splice(index,1)
                     localStorage.setItem("cartItems",JSON.stringify(state.cartItems))
                 }else{

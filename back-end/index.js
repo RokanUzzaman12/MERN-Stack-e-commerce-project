@@ -6,6 +6,7 @@ const cors  = require('cors')
 
 const productRoute = require('./routes/product/productRoute')
 const userRoute = require('./routes/user/userRoutes')
+const slideImageRoute = require('./routes/slide-image/slide-image-route')
 const verifyRoute = require('./routes/verifyEveryTime/verify')
 const app = express()
 app.use('/uploads',express.static('uploads'))
@@ -21,7 +22,7 @@ app.get('/',(req,res)=>{
 app.use('/user',userRoute)
 app.use('/products',productRoute)
 app.use('/verify',verifyRoute)
-
+app.use('/slide-image',slideImageRoute)
 
 const port = process.env.PORT || 400;
 

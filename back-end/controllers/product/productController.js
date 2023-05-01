@@ -49,7 +49,20 @@ exports.fetchSingleProductById = (async(req,res,next)=>{
     }
 })
 
-
+exports.fetchSingleProductBySlug = (async(req,res,next)=>{
+    try{
+        let productSlug = req.params.slug
+        let result = await productModel.findOne({slug:productSlug})
+        res.status(200).send({
+            type:'success',
+            msg:'Single Product Fetched Successfully',
+            data:result
+        })
+    }catch(err){
+        console.log(err)
+        res.status(500).send('Server Error')
+    }
+})
 
 
 exports.addNewProduct = (async(req,res,next)=>{
@@ -64,8 +77,8 @@ exports.addNewProduct = (async(req,res,next)=>{
         }
 
         let slug = slugify(name,{lower:true})
-        let chectSlug = await productModel.find({slug:slug})
-        if(chectSlug.length>0){
+        let checkSlug = await productModel.find({slug:slug})
+        if(checkSlug.length>0){
             slug = slugify(name,{lower:true})+'-'+Math.floor(Math.random()*10000)
         }
         
@@ -93,7 +106,7 @@ exports.addNewProduct = (async(req,res,next)=>{
 exports.updateProduct = (async(req,res,next)=>{
     try{
         let id = req.params.id
-        const {name,description,price} = req.body
+        const {name,description,price,brand} = req.body
         
         let singleProduct = await productModel.findById(id)
 
@@ -108,6 +121,7 @@ exports.updateProduct = (async(req,res,next)=>{
         singleProduct.name = name
         singleProduct.description = description
         singleProduct.image = image
+        singleProduct.brand = brand
         singleProduct.price = price
         await singleProduct.save()
 
