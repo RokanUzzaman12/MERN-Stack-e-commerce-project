@@ -10,6 +10,10 @@ const router = {
     productList:'/product-list',
     productDetailsById:`/product-details`,
     editProductById:'/edit-product',
+    
+    //slide image
+    addSlideImage:'/add-slide-image',
+    slideImageList:'/slide-image-list',
     test:`/test`
 }
 

@@ -15,6 +15,8 @@ import ProductList from './components/admin/product/productList/ProductList';
 import ProductDetails from './components/admin/product/productDetails/ProductDetails';
 import EditProduct from './components/admin/product/editProduct/EditProduct';
 import ProductDetailsForClient from './components/productDetails/ProductDetailsForClient';
+import AddNewSlideImage from './components/admin/slideImage/addSlideImage/AddNewSliderImage';
+import ImageList from './components/admin/slideImage/slideImageList/ImageList';
 import {Routes,Route} from "react-router-dom"
 import routerName from './routes'
 import './App.css'
@@ -47,6 +49,8 @@ function App() {
 
         <Route path= {routerName.addProduct} element = {<AddProducts/>}/>
         <Route path={routerName.productList} element = {<ProductList/>} />
+        <Route path={routerName.addSlideImage} element = {<AddNewSlideImage/>} />
+        <Route path={routerName.slideImageList} element = {<ImageList/>} />
         <Route path={routerName.admin} element={<AdminIndex/>} />
         <Route path={`${routerName.productDetailsById}/:productId`} element={<ProductDetails/>} />
         <Route path={`${routerName.editProductById}/:productId`} element = {<EditProduct/>} />

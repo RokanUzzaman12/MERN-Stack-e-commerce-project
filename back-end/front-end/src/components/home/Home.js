@@ -2,6 +2,7 @@
 import { useDispatch,useSelector } from "react-redux"
 import { useGetAllProductsQuery } from "../../features/productApi"
 import { addToCart,decreaseItemQuantity, increaseItemQuantity, removeSingleItemFromCart } from '../../features/cartSlice'
+import {useFetchAllImageQuery} from '../../features/slideImageApi'
 import { useNavigate } from "react-router-dom"
 import SiteCart from "../siteCart/SiteCart"
 import SideBar from "../left-side-bar/SideBar"
@@ -14,6 +15,8 @@ import './home.css'
 
 const Home = () => {
     const { data, error, isLoading } = useGetAllProductsQuery()
+    const {data:slideImageData,errors:slideImageError,loading:slideImageLoading} = useFetchAllImageQuery()
+    console.log(slideImageData)
     const dispatch = useDispatch()
     const allCarts = useSelector((state)=>state.cartSlice)
 
@@ -95,9 +98,10 @@ const Home = () => {
 
                                 <div className="slide-container">
                                     <Fade indicators={true} pauseOnHover={false}>
-                                        {fadeImages.map((fadeImage, index) => (
+                                        {slideImageData && slideImageData.data.map((fadeImage, index) => (
                                         <div key={index}>
-                                            <img style={divStyle} src={image2} />
+                                            
+                                            <img style={divStyle} src={`${process.env.REACT_APP_BASE_URL}/uploads/${fadeImage.image}`} />
                                             {/* <h2 style={spanStyle}>{fadeImage.caption}</h2> */}
                                         </div>
                                         ))}

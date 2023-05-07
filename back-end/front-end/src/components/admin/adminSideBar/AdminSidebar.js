@@ -6,19 +6,19 @@ const AdminSidebar = () => {
     
     let navData = [
         {
-            id: 1,
+            _id: 1,
             title: 'product',
             rightIcon:<i className="fa-solid fa-chevron-right nav-icon"  ></i>,
             subNav: [
                 {
-                    subNavId: 11,
+                    _id: 11,
                     navId:1,
                     subNavTitle: 'add product',
                     routePath:'/add-product'
                 },
 
                 {
-                    subNavId: 12,
+                    _id: 12,
                     navId:1,
                     subNavTitle: 'product list',
                     routePath:'/product-list'
@@ -27,25 +27,47 @@ const AdminSidebar = () => {
         },
 
         {
-            id: 2,
+            _id: 2,
             title: 'post',
             rightIcon:<i className="fa-solid fa-chevron-right nav-icon"  ></i>,
             subNav: [
                 {
-                    subNavId: 11,
-                    id: 2,
+                    _id: 11,
+                    navId: 2,
                     subNavTitle: 'add post',
                     routePath:''
                 },
 
                 {
-                    subNavId: 12,
-                    id: 2,
+                    _id: 12,
+                    navId: 2,
                     subNavTitle: 'post list',
                     routePath:''
                 }
             ]
+        },
+
+        {
+            _id: 3,
+            title: 'Slide Image',
+            rightIcon:<i className="fa-solid fa-chevron-right nav-icon"  ></i>,
+            subNav: [
+                {
+                    _id: 31,
+                    navId: 3,
+                    subNavTitle: 'add slide-image',
+                    routePath:'/add-slide-image'
+                },
+
+                {
+                    _id: 32,
+                    navId: 3,
+                    subNavTitle: 'slide-image list',
+                    routePath:'/slide-image-list'
+                }
+            ]
         }
+
     ]
 
     const [dropdown, setDropdown] = useState([])
@@ -72,13 +94,13 @@ const AdminSidebar = () => {
             setShow(!show)
         }
         let tempData = navData
-        let subNavIndex = tempData.findIndex((temp)=>temp.id == navId)
+        let subNavIndex = tempData.findIndex((temp)=>temp._id == navId)
 
 
 
         tempData.map((item)=>{
             
-            if(item.id == navId){
+            if(item._id == navId){
                 item.subNav = tempData[subNavIndex].subNav
                 item.rightIcon = <i className="fa-solid fa-chevron-down nav-icon" ></i>
             }else{
@@ -110,13 +132,13 @@ const AdminSidebar = () => {
 
                 {
                     navigation.map((nav,index) => (
-                        <ul key={nav.id}>
-                            <li className='product-button'  > <span onClick={()=>showHandle(nav.id)} > {nav.title} {nav.rightIcon} </span> 
+                        <ul key={nav._id}>
+                            <li className='product-button'  > <span onClick={()=>showHandle(nav._id)} > {nav.title} {nav.rightIcon} </span> 
                                 <ul className='childNav' >
                                     {
                                     
                                     show?nav.subNav.map((item) => (
-                                      <li> <Link to={item.routePath} onClick={()=>handelSubNav()} className='childNavIdem' key={item.subNavId} >{item.subNavTitle} </Link> </li>   
+                                      <li> <Link to={item.routePath} onClick={()=>handelSubNav()} className='childNavIdem' key={item._id} >{item.subNavTitle} </Link> </li>   
                                     )):''
                                     
                                     }
