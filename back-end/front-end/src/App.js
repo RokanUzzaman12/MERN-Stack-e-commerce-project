@@ -14,6 +14,8 @@ import AddProducts from './components/admin/product/addProduct/AddProducts';
 import ProductList from './components/admin/product/productList/ProductList';
 import ProductDetails from './components/admin/product/productDetails/ProductDetails';
 import EditProduct from './components/admin/product/editProduct/EditProduct';
+import Permission from './components/admin/manage-admin/permission/Permission';
+import Menu from './components/admin/manage-admin/menu/Menu';
 import ProductDetailsForClient from './components/productDetails/ProductDetailsForClient';
 import AddNewSlideImage from './components/admin/slideImage/addSlideImage/AddNewSliderImage';
 import ImageList from './components/admin/slideImage/slideImageList/ImageList';
@@ -42,7 +44,7 @@ function App() {
         <Route path={routerName.signUp} element={<Register/>}/>
         <Route path={routerName.aboutUs} element={<AboutUs/>}/>
         <Route path={routerName.contactUs} element={<ContactUs/>}/>
-        <Route path={`/:slug`} element = {<ProductDetailsForClient/>}/>
+        <Route path={`/product/:slug`} element = {<ProductDetailsForClient/>}/>
         <Route element={<AuthProtectRoutes/>}>
           <Route path={routerName.cart} element={<Cart/>}/>
         </Route>
@@ -51,6 +53,8 @@ function App() {
         <Route path={routerName.productList} element = {<ProductList/>} />
         <Route path={routerName.addSlideImage} element = {<AddNewSlideImage/>} />
         <Route path={routerName.slideImageList} element = {<ImageList/>} />
+        <Route path={routerName.permission} element = {<Permission/>} />
+        <Route path={routerName.menu} element = {<Menu/>} />
         <Route path={routerName.admin} element={<AdminIndex/>} />
         <Route path={`${routerName.productDetailsById}/:productId`} element={<ProductDetails/>} />
         <Route path={`${routerName.editProductById}/:productId`} element = {<EditProduct/>} />

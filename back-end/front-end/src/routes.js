@@ -14,6 +14,10 @@ const router = {
     //slide image
     addSlideImage:'/add-slide-image',
     slideImageList:'/slide-image-list',
+
+    // permission
+    permission:'/permission',
+    menu:'/menu',
     test:`/test`
 }
 

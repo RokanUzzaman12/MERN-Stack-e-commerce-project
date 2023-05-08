@@ -9,8 +9,8 @@ const ProductDetailsForClient = () => {
 
     const { slug } = useParams()
     const { data, error, isLoading } = useGetSingleProductBySlugQuery(slug)
-    let image300 = data?`${process.env.REACT_APP_BASE_URL}/uploads/${data.data.image}`:''
-    let image1200 = data?`${process.env.REACT_APP_BASE_URL}/uploads/${data.data.image}`:''
+    let image300 = data?`${process.env.REACT_APP_BASE_URL}/uploads/${data.data?.image}`:''
+    let image1200 = data?`${process.env.REACT_APP_BASE_URL}/uploads/${data.data?.image}`:''
     
     return (
         <div>
@@ -19,7 +19,7 @@ const ProductDetailsForClient = () => {
                     <div className="col-md-1"></div>
                     <div className="col-md-4">
                         <div className="card mt-5">
-                            <div className="card-header text-center "> {data && data.data.name} </div>
+                            <div className="card-header text-center "> {data && data.data?.name} </div>
                             <div className="card-body">
 
                                 <div className="productImage">
@@ -59,10 +59,10 @@ const ProductDetailsForClient = () => {
                                  {
                                  data && 
                                     <div className="product-description">
-                                       <p>{data.data.description}</p> 
-                                        <p><b>Name:</b> <span>{data.data.name}</span> </p> 
-                                        <p><b>Brand:</b> <span>{data.data.brand}</span> </p> 
-                                        <p><b>Price:</b> <span>{data.data.price}</span> </p> 
+                                       <p>{data.data?.description}</p> 
+                                        <p><b>Name:</b> <span>{data.data?.name}</span> </p> 
+                                        <p><b>Brand:</b> <span>{data.data?.brand}</span> </p> 
+                                        <p><b>Price:</b> <span>{data.data?.price}</span> </p> 
                                         
                                     </div>
                                 }

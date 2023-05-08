@@ -49,7 +49,7 @@ const Home = () => {
     }
 
     const productDetails=(slug)=>{
-        navigate(`/${slug}`)
+        navigate(`/product/${slug}`)
     }
 
     const spanStyle = {

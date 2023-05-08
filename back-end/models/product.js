@@ -30,6 +30,14 @@ const productSchema = new Schema({
     brand:{
         type:String,
         default:''
+    },
+    update:{
+        type:Date,
+        default:null
+    },
+    create:{
+        type:Date,
+        default: new Date
     }
 
     
