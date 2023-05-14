@@ -1,10 +1,21 @@
 import AdminSidebar from "../../adminSideBar/AdminSidebar"
+import {useGetAllMenusQuery,useAddNewMenuMutation, useDeleteMenuMutation} from "../../../../features/manageMenuApi"
 import { useState } from "react"
-import {useAddNewMenuMutation} from '../../../../features/menuApi'
+import { toast } from 'react-toastify'
+import Swal from 'sweetalert2'
+
+
 
 const Menu = ()=>{
-    const [addNew] = useAddNewMenuMutation()
+    
+   
     const [show,setShow] = useState(false)
+
+    
+    const {data,error,isLoading} = useGetAllMenusQuery()
+    const [addNew] = useAddNewMenuMutation()
+    const [deleteData] = useDeleteMenuMutation()
+
     const menuData = {
         title:'',
     }
@@ -13,8 +24,45 @@ const Menu = ()=>{
     const submitFrom = (e)=>{
         e.preventDefault()
         addNew(menu).then((response)=>{
-            console.log(response)
+            if(response.data.type === 'success'){
+                toast.success(response.data.msg)
+            }
         })
+       
+        
+    }
+
+    const remove = (id) => {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                deleteData(id).then((response)=>{
+                    if(response.data.type === 'success'){
+                        Swal.fire(
+                            'Deleted!',
+                            `${response.data.msg}`,
+                            'success'
+                          )
+                    }else{
+                        Swal.fire(
+                            'error',
+                            'There is a problem',
+                            'error'
+                        )
+                    }
+                })
+
+            }
+        })
+
     }
 
     return (
@@ -72,7 +120,7 @@ const Menu = ()=>{
                         <div className="card-header"> 
                             <div className="row">
                                 <div className="col-md-6">
-                                    Menu List 
+                                    Menu List
                                 </div>
                                 
                                 <div className="col-md-6 d-flex justify-content-end">
@@ -93,18 +141,25 @@ const Menu = ()=>{
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Name</td>
-                                    <td>Menu</td>
-                                    <td>Link</td>
-                                    <td className="text-center">
-                                        Action
-                                    </td>
-                                </tr>
+                                {
+                                    data && data.data.map((item,index)=>(
+                                        <tr key={item._id}>
+                                            <td>{index+1}</td>
+                                            <td>{item.title}</td>
+                                            <td>{item.order}</td>
+                                            <td>Link</td>
+                                            <td className="text-center">
+                                                <span className="eye-delete" onClick={()=>remove(item._id)}><i className="fa fa-trash"></i></span>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+
 
                             </tbody>
                             </table>
+                            
+
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ import {configureStore} from '@reduxjs/toolkit'
 import { productApi } from './features/productApi';
 import {slideImageApi} from './features/slideImageApi'
 import {userApi} from './features/userApi'
-import { menuApi } from './features/menuApi';
+import {manageMenuApi} from './features/manageMenuApi'
 import cartSlice from './features/cartSlice'
 import authSlice from './features/authSlice';
 import {authUserApi} from './features/authApi'
@@ -12,8 +12,8 @@ const store = configureStore({
     [productApi.reducerPath]:productApi.reducer,
     [slideImageApi.reducerPath]:slideImageApi.reducer,
     [userApi.reducerPath]:userApi.reducer,
+    [manageMenuApi.reducerPath]:manageMenuApi.reducer,
     [authUserApi.reducerPath]:authUserApi.reducer,
-    [menuApi.reducerPath]:authUserApi.reducer,
     cartSlice,
     authSlice,
   },
@@ -21,7 +21,7 @@ const store = configureStore({
     productApi.middleware,
     slideImageApi.middleware,
     userApi.middleware,
-    menuApi.middleware,
+    manageMenuApi.middleware,
     authUserApi.middleware)
 })
 

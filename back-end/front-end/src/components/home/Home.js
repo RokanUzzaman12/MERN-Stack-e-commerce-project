@@ -16,7 +16,7 @@ import './home.css'
 const Home = () => {
     const { data, error, isLoading } = useGetAllProductsQuery()
     const {data:slideImageData,errors:slideImageError,loading:slideImageLoading} = useFetchAllImageQuery()
-    console.log(slideImageData)
+    
     const dispatch = useDispatch()
     const allCarts = useSelector((state)=>state.cartSlice)
 
