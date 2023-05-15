@@ -14,6 +14,7 @@ const menuSchema = new Schema({
     subNav:[ 
         {
             type:Schema.Types.ObjectId,
+            ref:'permission'
         }
     ],
     update:{

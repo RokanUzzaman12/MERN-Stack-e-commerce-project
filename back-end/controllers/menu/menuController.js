@@ -47,6 +47,26 @@ exports.fetchAllMenu = (async(req,res,next)=>{
     }
 })
 
+exports.updateMenu = (async(req,res,next)=>{
+    try{
+
+        const menuId = req.params.id
+        const {title} = req.body
+        let selectedMenu = await menuModel.findById(menuId)
+        selectedMenu.title = title
+
+        await selectedMenu.save()
+        res.status(200).send({
+            type:'success',
+            msg:'Menu Updated Successfully',
+            data:selectedMenu,
+        })
+    }catch(err){
+        console.log(err)
+        res.status(200).send("Server Error")
+    }
+})
+
 exports.deleteMenu = (async(req,res,next)=>{
     try{
         let menuId = req.params.id

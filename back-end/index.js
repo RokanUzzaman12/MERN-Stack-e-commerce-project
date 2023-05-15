@@ -9,6 +9,7 @@ const userRoute = require('./routes/user/userRoutes')
 const slideImageRoute = require('./routes/slide-image/slide-image-route')
 const verifyRoute = require('./routes/verifyEveryTime/verify')
 const menu = require('./routes/menu/menu')
+const permission = require('./routes/menu/permission')
 const app = express()
 app.use('/uploads',express.static('uploads'))
 
@@ -25,6 +26,7 @@ app.use('/products',productRoute)
 app.use('/verify',verifyRoute)
 app.use('/slide-image',slideImageRoute)
 app.use('/menu',menu)
+app.use('/permission',permission)
 
 const port = process.env.PORT || 400;
 

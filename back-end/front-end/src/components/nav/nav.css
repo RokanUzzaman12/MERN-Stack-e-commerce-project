@@ -13,6 +13,11 @@
     text-decoration: none;
     color: white;
 }
+
+.nav-bar a:hover{
+    text-decoration: none;
+    color: white;
+}
 .nav-bar h2{
     font-size: 40px;
 }

@@ -19,6 +19,14 @@ export const manageMenuApi = createApi({
             invalidatesTags:['menuTag']
 
         }),
+        updateMenu : builder.mutation({
+            query:(updatedData)=>({
+                url:`/menu/${updatedData._id}`,
+                method:'PUT',
+                body:updatedData
+            }),
+            invalidatesTags:['menuTag']
+        }),
         deleteMenu : builder.mutation({
             query:(id)=>({
                 url:`/menu/${id}`,
@@ -32,4 +40,4 @@ export const manageMenuApi = createApi({
 
 })
 
-export const {useGetAllMenusQuery,useAddNewMenuMutation,useDeleteMenuMutation} = manageMenuApi
+export const {useGetAllMenusQuery,useAddNewMenuMutation,useDeleteMenuMutation, useUpdateMenuMutation} = manageMenuApi
