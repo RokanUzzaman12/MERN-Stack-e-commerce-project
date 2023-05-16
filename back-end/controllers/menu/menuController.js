@@ -34,6 +34,7 @@ exports.addNewModal = (async(req,res,next)=>{
 exports.fetchAllMenu = (async(req,res,next)=>{
     try{
         let result = await menuModel.find()
+        .populate({path:'subNav'})
         .sort({order:1})
         return res.status(200).send({
             type:'success',

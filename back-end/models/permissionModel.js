@@ -15,6 +15,16 @@ const permissionSchema = new Schema({
         type:Number,
         default:0
     },
+    isMenu:{
+        type:Boolean,
+        default:false
+    },
+
+    routePath:{
+        type:String,
+        default:''
+    },
+
     update:{
         type:Date,
         default:null

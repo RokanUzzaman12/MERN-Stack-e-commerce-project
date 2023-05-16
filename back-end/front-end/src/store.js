@@ -3,6 +3,7 @@ import { productApi } from './features/productApi';
 import {slideImageApi} from './features/slideImageApi'
 import {userApi} from './features/userApi'
 import {manageMenuApi} from './features/manageMenuApi'
+import {permissionApi} from './features/permissionApi'
 import cartSlice from './features/cartSlice'
 import authSlice from './features/authSlice';
 import {authUserApi} from './features/authApi'
@@ -13,6 +14,7 @@ const store = configureStore({
     [slideImageApi.reducerPath]:slideImageApi.reducer,
     [userApi.reducerPath]:userApi.reducer,
     [manageMenuApi.reducerPath]:manageMenuApi.reducer,
+    [permissionApi.reducerPath]:permissionApi.reducer,
     [authUserApi.reducerPath]:authUserApi.reducer,
     cartSlice,
     authSlice,
@@ -22,6 +24,7 @@ const store = configureStore({
     slideImageApi.middleware,
     userApi.middleware,
     manageMenuApi.middleware,
+    permissionApi.middleware,
     authUserApi.middleware)
 })
 
