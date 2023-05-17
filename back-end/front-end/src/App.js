@@ -19,6 +19,7 @@ import Menu from './components/admin/manage-admin/menu/Menu';
 import ProductDetailsForClient from './components/productDetails/ProductDetailsForClient';
 import AddNewSlideImage from './components/admin/slideImage/addSlideImage/AddNewSliderImage';
 import ImageList from './components/admin/slideImage/slideImageList/ImageList';
+import Role from './components/admin/manage-admin/role/Role';
 import {Routes,Route} from "react-router-dom"
 import routerName from './routes'
 import './App.css'
@@ -55,6 +56,7 @@ function App() {
         <Route path={routerName.slideImageList} element = {<ImageList/>} />
         <Route path={routerName.permission} element = {<Permission/>} />
         <Route path={routerName.menu} element = {<Menu/>} />
+        <Route path={routerName.role} element = {<Role/>}/>
         <Route path={routerName.admin} element={<AdminIndex/>} />
         <Route path={`${routerName.productDetailsById}/:productId`} element={<ProductDetails/>} />
         <Route path={`${routerName.editProductById}/:productId`} element = {<EditProduct/>} />

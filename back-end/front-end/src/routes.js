@@ -18,6 +18,7 @@ const router = {
     // permission
     permission:'/permission',
     menu:'/menu',
+    role:'/role',
     test:`/test`
 }
 
