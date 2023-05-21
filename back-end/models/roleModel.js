@@ -10,6 +10,20 @@ const roleSchema = new Schema({
         {
         type:Schema.Types.ObjectId,
         ref:'menu'
+        },    
+    ],
+
+    permission:[
+        {
+        type:Schema.Types.ObjectId,
+        ref:'permission'
+        }
+    ],
+
+    givenPermission:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:'permission'
         }
     ],
     update:{

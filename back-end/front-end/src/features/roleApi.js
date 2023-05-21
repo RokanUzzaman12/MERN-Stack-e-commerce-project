@@ -21,11 +21,16 @@ export const roleApi = createApi({
             invalidatesTags:['Role']
         }),
 
-
-        
+        deleteRole : builder.mutation({
+            query:(id)=>({
+                url:`/role/${id}`,
+                method:'DELETE',
+            }),
+            invalidatesTags:['Role']
+        })   
 
     })
 
 })
 
-export const {useAddNewRoleMutation, useGetAllRoleQuery} = roleApi
+export const {useAddNewRoleMutation, useGetAllRoleQuery,useDeleteRoleMutation} = roleApi

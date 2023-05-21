@@ -1,116 +1,129 @@
 import AdminSidebar from "../../adminSideBar/AdminSidebar"
 import Multiselect from 'multiselect-react-dropdown';
-import {useGetAllMenusQuery } from "../../../../features/manageMenuApi"
-import {useGetAllPermissionQuery} from "../../../../features/permissionApi"
-import {useAddNewRoleMutation, useGetAllRoleQuery} from "../../../../features/roleApi"
-import {toast} from 'react-toastify'
-import { useState } from "react"
+import { useGetAllMenusQuery } from "../../../../features/manageMenuApi"
+import { useGetAllPermissionQuery } from "../../../../features/permissionApi"
+import { useAddNewRoleMutation, useGetAllRoleQuery, useDeleteRoleMutation } from "../../../../features/roleApi"
+import { toast } from 'react-toastify'
+import { useState, useEffect } from "react"
 import Swal from 'sweetalert2'
 import { Modal } from "react-bootstrap"
 
-const Role = ()=>{
-    const [show,setShow] = useState(false)
+const Role = () => {
+    const [show, setShow] = useState(false)
 
     const [addNewRole] = useAddNewRoleMutation()
-
+    const [deleteRole] = useDeleteRoleMutation()
     let initialVerificationData = {
-        titleError:'',
-        menuError:'',
-        pathError:''
+        titleError: '',
+        menuError: '',
+        pathError: ''
     }
 
     let roleInitialValue = {
-        name:'',
-        menu:[],
+        name: '',
+        menu: [],
 
     }
 
+
+
     const [role, setRole] = useState(roleInitialValue)
-    const [verification,setVerification] = useState(initialVerificationData)
-    const [modalShow,setModalShow] = useState(false)
-    const [editItem,setEditItem] = useState({})
+    const [verification, setVerification] = useState(initialVerificationData)
+    const [modalShow, setModalShow] = useState(false)
+    const [editItem, setEditItem] = useState({})
 
-    const {data:allMenu,error:menuerror,isLoading:menuLoading} = useGetAllMenusQuery()
-    const {data:allPermission, error:permissionError, isLoading:permissionIsLoading} = useGetAllPermissionQuery()
-    const {data:allRole,error:roleError,isLoading:loadingError} = useGetAllRoleQuery()
-    console.log(allRole)
-    
-    
+    const { data: allMenu, error: menuerror, isLoading: menuLoading } = useGetAllMenusQuery()
+    const { data: allPermission, error: permissionError, isLoading: permissionIsLoading } = useGetAllPermissionQuery()
+    const { data: allRole, error: roleError, isLoading: loadingError } = useGetAllRoleQuery()
+    // console.log(allRole)
 
+
+    // useEffect(()=>{
+    //     allRole && allRole.data.map((item)=>{
+    //         console.log()
+    //     })
+    // },[allRole])
     // const onSelect =(data)=>{
     //     setPermission((state)=>({...state,navId:'2'}))
     //     console.log(permission)
     // }
 
     const remove = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteRole(id).then((response) => {
+                    if (response.data.type === 'success') {
+                        Swal.fire(
+                            'Deleted!',
+                            `${response.data.msg}`,
+                            'success'
+                        )
+                    } else {
+                        Swal.fire(
+                            'error',
+                            'There is a problem',
+                            'error'
+                        )
+                    }
+                })
 
-        // Swal.fire({
-        //     title: 'Are you sure?',
-        //     text: "You won't be able to revert this!",
-        //     icon: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Yes, delete it!'
-        //   }).then((result) => {
-        //     if (result.isConfirmed) {
-        //         deletePermission(id).then((response)=>{
-        //             if(response.data.type === 'success'){
-        //                 Swal.fire(
-        //                     'Deleted!',
-        //                     `${response.data.msg}`,
-        //                     'success'
-        //                   )
-        //             }else{
-        //                 Swal.fire(
-        //                     'error',
-        //                     'There is a problem',
-        //                     'error'
-        //                 )
-        //             }
-        //         })
-
-        //     }
-        // })
+            }
+        })
 
     }
 
-    const hideForm = ()=>{
+    const hideForm = () => {
         setShow(false)
         setRole(roleInitialValue)
         setVerification(initialVerificationData)
     }
-    const submitFrom = (e)=>{
+    const submitFrom = (e) => {
         e.preventDefault()
-        addNewRole(role).then((response)=>{
-            if(response.data.type === 'success'){
+        addNewRole(role).then((response) => {
+            if (response.data.type === 'success') {
                 toast.success(response.data.msg)
             }
         })
     }
 
-    const saveEditedData = (e)=>{
+    const saveEditedData = (e) => {
         e.preventDefault()
 
 
     }
 
-    const handelShowModal = (data)=>{
+    const handelShowModal = (data) => {
         setModalShow(true)
         setEditItem(data)
+        console.log(editItem)
     }
-    let options = [{name:'rokon',_id:'1'},{name:'asif',_id:'2'}]
+
+    const goodToGO = (data)=>{
+        console.log(data)
+        
+        // let index = editItem.givenPermission.findIndex((item))
+    }
+
+    let options = [{ name: 'rokon', _id: '1' }, { name: 'asif', _id: '2' }]
     return (
         <div className="margin-top-right">
             <div className="row">
                 <div className="col-md-2">
-                    <AdminSidebar/>
+                    <AdminSidebar />
                 </div>
-                <Modal 
-                show={modalShow}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
+                <Modal
+                    show={modalShow}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
                 >
                     <Modal.Header>Edit Permission</Modal.Header>
                     <Modal.Body>
@@ -118,9 +131,51 @@ const Role = ()=>{
                         <div className="card">
 
                             <div className="card-body">
-                                <form onSubmit={(e)=>saveEditedData(e)} >
-                                        <div className="row">
-                                            <div className="col-md-12">
+                                <form onSubmit={(e) => saveEditedData(e)} >
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <div>{editItem.name}</div>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <Multiselect
+                                                isObject={true}
+                                                //singleSelect={true} 
+                                                options={editItem.menu}
+                                                displayValue="title"
+
+                                                selectedValues={editItem.menu}
+                                                onKeyPressFn={function noRefCheck() { }}
+                                                onRemove={function noRefCheck() { }}
+                                                onSearch={function noRefCheck() { }}
+
+                                                onSelect={(data) => setEditItem({ ...editItem, givenPermission: data[0] })}
+                                            />
+                                        </div>
+                                        <div className="col-md-5">
+
+
+                                            <div className="text-capitalize d-flex flex-wrap">
+                                                <div className="d-flex justify-content-start">
+                                                    <div className="custom-control custom-checkbox mr-4 py-1 px-3">
+                                                            {
+                                                                editItem.permission && editItem.permission.map((item)=>(
+
+                                                                    <span key={item._id}>
+                                                                        <div>
+                                                                            <input type="checkbox" defaultChecked={goodToGO(item)} id={item._id} className="custom-control-input" value={item._id}/>
+                                                                            <label htmlFor={item._id} className="custom-control-label">{item.subNavTitle}</label>
+                                                                        </div>
+                                                                    </span>
+                                                                ))
+                                                            }
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        {/* <div className="col-md-12">
                                                 <div className="form-group mt-3">
                                                     <label >Brand Name</label>
                                                     <Multiselect
@@ -170,23 +225,23 @@ const Role = ()=>{
 
 
 
-                                            </div>
+                                            </div> */}
 
-                                        </div>
-                                    
+                                    </div>
+
                                     <button className="btn btn-primary mt-3">Submit</button>
                                 </form>
                             </div>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button  className="btn btn-primary" onClick={()=>setModalShow(false)}> Close</button>
+                        <button className="btn btn-primary" onClick={() => setModalShow(false)}> Close</button>
                     </Modal.Footer>
                 </Modal>
                 <div className="col-md-10">
 
-                {show?<div className="row">
-                    <div className="col-md-3"></div>
+                    {show ? <div className="row">
+                        <div className="col-md-3"></div>
 
                         <div className="col-md-6">
 
@@ -196,21 +251,21 @@ const Role = ()=>{
                                         <div className="col-md-6">
                                             Create New Role
                                         </div>
-                                        
+
                                         <div className="col-md-6 d-flex justify-content-end">
-                                            <button onClick={()=>hideForm()}  className="btn btn-danger"><i className="fa-solid fa-xmark"></i></button>
-                                            
+                                            <button onClick={() => hideForm()} className="btn btn-danger"><i className="fa-solid fa-xmark"></i></button>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                    <form onSubmit={(e)=>submitFrom(e)} >
+                                    <form onSubmit={(e) => submitFrom(e)} >
                                         <div className="row">
                                             <div className="col-md-12">
 
                                                 <div className="form-group mt-3">
                                                     <label >Role Name</label>
-                                                    <input type="text" className="form-control mt-1"  placeholder="Role Name" value={role.name} onChange={(e)=>setRole({...role,name:e.target.value})} />
+                                                    <input type="text" className="form-control mt-1" placeholder="Role Name" value={role.name} onChange={(e) => setRole({ ...role, name: e.target.value })} />
                                                     {verification.titleError && <small className="text-danger">{verification.titleError}</small>}
                                                 </div>
 
@@ -221,10 +276,10 @@ const Role = ()=>{
                                                         // singleSelect={true} 
                                                         options={allMenu && allMenu.data}
                                                         displayValue="title"
-                                                        onKeyPressFn={function noRefCheck(){}}
-                                                        onRemove={function noRefCheck(){}}
-                                                        onSearch={function noRefCheck(){}}
-                                                        onSelect={(data)=>setRole({...role,menu:data})}
+                                                        onKeyPressFn={function noRefCheck() { }}
+                                                        onRemove={function noRefCheck() { }}
+                                                        onSearch={function noRefCheck() { }}
+                                                        onSelect={(data) => setRole({ ...role, menu: data })}
                                                     />
                                                     {verification.menuError && <small className="text-danger">{verification.menuError}</small>}
                                                 </div>
@@ -233,7 +288,7 @@ const Role = ()=>{
                                             </div>
 
                                         </div>
-                                        
+
                                         <button className="btn btn-primary mt-3" >Submit</button>
                                     </form>
                                 </div>
@@ -241,52 +296,55 @@ const Role = ()=>{
                         </div>
 
                         <div className="col-md-3"></div>
-                        
-                    </div>:<span></span>}
+
+                    </div> : <span></span>}
 
                     <div className="card mt-5">
-                        <div className="card-header"> 
+                        <div className="card-header">
                             <div className="row">
                                 <div className="col-md-6">
                                     Role List
                                 </div>
-                                
+
                                 <div className="col-md-6 d-flex justify-content-end">
-                                    <button onClick={()=>setShow(true)} className="btn btn-primary">Create Role</button>
+                                    <button onClick={() => setShow(true)} className="btn btn-primary">Create Role</button>
                                 </div>
                             </div>
-                         </div>
+                        </div>
                         <div className="card-body">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col" className="text-center">Menu</th>
+                            {allRole && allRole.data.map((item) => (
 
-                                </tr>
-                            </thead>
-                            <tbody>
+                                <div className="border" key={item._id}>
+                                    <div className="row p-2">
+                                        <div className="col-md-2">{item.name}</div>
 
-                                {allRole && allRole.data.map((item,index)=>(
-                                    <tr key={item._id}>
-                                        <td>{index+1}</td>
-                                        <td>{item.name}</td>
-                                        <td className="text-center">
-                                            {item.menu.map((m)=>(
-                                                <span key={m._id}>
-                                                    <span className="p-2">{m.title}</span>
-                                                </span>
-                                            
-                                            
+                                        <div className="col-md-3">
+                                            {item.menu.map((m) => (
+                                                <div className="badge bg-primary m-2" key={m._id}>{m.title}</div>
                                             ))}
-                                            
-                                        </td>
-                                    </tr>
-                                ))}
 
-                            </tbody>
-                            </table>
+
+                                        </div>
+                                        <div className="col-md-5">
+
+                                            {item.permission && item.permission.map((p) => (
+                                                <div className="badge bg-info m-2" key={p._id}> {p.subNavTitle}</div>
+                                            ))}
+                                        </div>
+                                        <div className="col-md-2">
+                                            <div className="d-flex justify-content-center">
+                                                <span className=" eye-edit" onClick={() => handelShowModal(item)} > <i className="fa fa-pencil"></i> </span>
+                                                <span className=" eye-delete" onClick={() => remove(item._id)}><i className="fa fa-trash"></i></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            ))}
+
+
                         </div>
                     </div>
                 </div>

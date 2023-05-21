@@ -10,6 +10,24 @@
     margin-top: 75px;
     
 }
+.custom-control {
+    position: relative;
+    z-index: 1;
+    display: block;
+    min-height: 1.21875rem;
+    padding-left: 1.5rem;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+}
+.custom-control-input {
+    margin: 6px 5px 0px 0px;
+}
+.custom-control-label {
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: top;
+    margin-right: 15px;
+}
 :root{
     --bgcolor: linear-gradient(120deg, #074786 0%, #2a86e0 100%);
     --bghover:linear-gradient(120deg, #2a86e0 0%, #074786 100%);
