@@ -38,12 +38,40 @@ exports.fetchAllRole = (async(req,res,next)=>{
         const result = await roleModel.find()
         .populate({path:'menu',populate:{path:'subNav'}})
         .populate({path:'permission'})
+        .populate({path:'givenPermission'})
 
         res.status(200).send({
             type:'success',
             msg:'Data Fetch Successfully',
             data:result
         })
+    }catch(err){
+        console.log(err)
+        res.status(500).send("Server Error")
+    }
+})
+
+exports.updateRole = (async(req,res,next)=>{
+    try{
+        let roleId = req.params.id
+        const {permission,givenPermission,menu} = req.body
+        // permission.push({...menu.subNav})
+        // console.log(...menu)
+        let selectedRole = await roleModel.findById(roleId)
+        
+        selectedRole.permission = permission
+        selectedRole.givenPermission = givenPermission
+        selectedRole.menu = menu
+
+        await selectedRole.save()
+        
+        let result = await roleModel.findById(roleId)
+        res.status(200).send({
+            type:'success',
+            msg:'Data Updated Successfully',
+            data:result
+        })
+
     }catch(err){
         console.log(err)
         res.status(500).send("Server Error")

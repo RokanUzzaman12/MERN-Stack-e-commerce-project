@@ -21,6 +21,15 @@ export const roleApi = createApi({
             invalidatesTags:['Role']
         }),
 
+        updateRole : builder.mutation({
+            query:(data)=>({
+                url:`/role/${data._id}`,
+                method:'PUT',
+                body:data
+            }),
+            invalidatesTags:['Role']
+        }), 
+
         deleteRole : builder.mutation({
             query:(id)=>({
                 url:`/role/${id}`,
@@ -33,4 +42,4 @@ export const roleApi = createApi({
 
 })
 
-export const {useAddNewRoleMutation, useGetAllRoleQuery,useDeleteRoleMutation} = roleApi
+export const {useAddNewRoleMutation, useGetAllRoleQuery,useDeleteRoleMutation, useUpdateRoleMutation} = roleApi

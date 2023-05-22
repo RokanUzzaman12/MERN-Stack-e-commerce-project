@@ -2,7 +2,7 @@ import AdminSidebar from "../../adminSideBar/AdminSidebar"
 import Multiselect from 'multiselect-react-dropdown';
 import { useGetAllMenusQuery } from "../../../../features/manageMenuApi"
 import { useGetAllPermissionQuery } from "../../../../features/permissionApi"
-import { useAddNewRoleMutation, useGetAllRoleQuery, useDeleteRoleMutation } from "../../../../features/roleApi"
+import { useAddNewRoleMutation, useGetAllRoleQuery, useDeleteRoleMutation, useUpdateRoleMutation } from "../../../../features/roleApi"
 import { toast } from 'react-toastify'
 import { useState, useEffect } from "react"
 import Swal from 'sweetalert2'
@@ -13,6 +13,7 @@ const Role = () => {
 
     const [addNewRole] = useAddNewRoleMutation()
     const [deleteRole] = useDeleteRoleMutation()
+    const [update] = useUpdateRoleMutation()
     let initialVerificationData = {
         titleError: '',
         menuError: '',
@@ -96,21 +97,67 @@ const Role = () => {
 
     const saveEditedData = (e) => {
         e.preventDefault()
-
+        update(editItem).then((response)=>{
+            console.log(response)
+        })
+        
 
     }
 
     const handelShowModal = (data) => {
         setModalShow(true)
         setEditItem(data)
-        console.log(editItem)
+        
     }
 
-    const goodToGO = (data)=>{
-        console.log(data)
+    const selectedItem = (data)=>{
+        // console.log(data)
+        let editIndex = editItem.givenPermission.findIndex((item)=>item._id === data._id)
+        // console.log(editIndex)
+        if(editIndex === -1){
+            return false
+        }else{
+            return true
+        }
         
         // let index = editItem.givenPermission.findIndex((item))
     }
+
+    const menuWisePermission = (data,permission)=>{
+
+        let editIndex = data.givenPermission.findIndex((item)=>item._id === permission._id)
+       
+        if(editIndex === -1){
+            return false
+        }else{
+            return true
+        }
+    }
+
+   const handelCheckBox = (e)=>{
+        let dataObj = {
+            _id:e.target.value
+        }
+        if(e.target.checked){
+            
+            setEditItem((state)=>({...state,givenPermission:[...state.givenPermission,dataObj]}))
+        }else{
+            let copyEditItem = editItem.givenPermission
+            let updatedArray = copyEditItem.filter((item)=>item._id !== e.target.value)
+            setEditItem((state)=>({...state,givenPermission:updatedArray}))
+        }
+   }
+
+   const handelMenu = (data)=>{
+        let updatedPermission = []
+        data.map((item)=>{
+            updatedPermission.push(...item.subNav)
+        })
+        // editItem.permission = updatedPermission
+        setEditItem((state)=>({...state,permission:updatedPermission,menu:data}))
+        console.log(updatedPermission)
+   } 
+
 
     let options = [{ name: 'rokon', _id: '1' }, { name: 'asif', _id: '2' }]
     return (
@@ -140,15 +187,16 @@ const Role = () => {
                                             <Multiselect
                                                 isObject={true}
                                                 //singleSelect={true} 
-                                                options={editItem.menu}
+                                                options={allMenu && allMenu.data}
                                                 displayValue="title"
 
                                                 selectedValues={editItem.menu}
                                                 onKeyPressFn={function noRefCheck() { }}
-                                                onRemove={function noRefCheck() { }}
+                                                onRemove={(data)=>handelMenu(data)}
                                                 onSearch={function noRefCheck() { }}
 
-                                                onSelect={(data) => setEditItem({ ...editItem, givenPermission: data[0] })}
+                                                //onSelect={(data) => setEditItem({ ...editItem, menu: data })}
+                                                onSelect={(data) => handelMenu(data)}
                                             />
                                         </div>
                                         <div className="col-md-5">
@@ -162,7 +210,7 @@ const Role = () => {
 
                                                                     <span key={item._id}>
                                                                         <div>
-                                                                            <input type="checkbox" defaultChecked={goodToGO(item)} id={item._id} className="custom-control-input" value={item._id}/>
+                                                                            <input type="checkbox" defaultChecked={selectedItem(item)} id={item._id} className="custom-control-input" onChange={(e)=>handelCheckBox(e)} value={item._id}/>
                                                                             <label htmlFor={item._id} className="custom-control-label">{item.subNavTitle}</label>
                                                                         </div>
                                                                     </span>
@@ -326,10 +374,21 @@ const Role = () => {
 
                                         </div>
                                         <div className="col-md-5">
+                                            {
+                                                item.menu.map((m)=>(
+                                                    <span key={m._id}>
+                                                        {
+                                                            m.subNav.map((s)=>(
+                                                                <span className={menuWisePermission(item,s)?'badge bg-info m-2':'badge bg-danger m-2'} key={s._id}> {s.subNavTitle} </span>
+                                                            ))
+                                                        }
+                                                    </span>
+                                                ))
+                                            }
 
-                                            {item.permission && item.permission.map((p) => (
+                                            {/* {item.permission && item.permission.map((p) => (
                                                 <div className="badge bg-info m-2" key={p._id}> {p.subNavTitle}</div>
-                                            ))}
+                                            ))} */}
                                         </div>
                                         <div className="col-md-2">
                                             <div className="d-flex justify-content-center">
