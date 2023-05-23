@@ -12,6 +12,12 @@ export const roleApi = createApi({
             
         }),
 
+        getAllRoleByUserRole : builder.query({
+            query:()=>'/role/user-role',
+            providesTags:['Role']
+            
+        }),
+
         addNewRole : builder.mutation({
             query:(roleData)=>({
                 url:'/role',
@@ -42,4 +48,4 @@ export const roleApi = createApi({
 
 })
 
-export const {useAddNewRoleMutation, useGetAllRoleQuery,useDeleteRoleMutation, useUpdateRoleMutation} = roleApi
+export const {useAddNewRoleMutation, useGetAllRoleQuery,useDeleteRoleMutation, useUpdateRoleMutation, useGetAllRoleByUserRoleQuery} = roleApi

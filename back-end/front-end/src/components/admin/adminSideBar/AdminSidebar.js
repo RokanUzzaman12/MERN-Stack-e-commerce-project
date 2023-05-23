@@ -1,72 +1,74 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import routes from '../../../routes.js'
+import { useGetAllRoleByUserRoleQuery } from '../../../features/roleApi.js'
 import './adminSidebar.css'
 const AdminSidebar = () => {
-    
+    const{data:allUserRole,error:userRoleError,isLoading:userRoleLoading} = useGetAllRoleByUserRoleQuery()
+    console.log(allUserRole)
     let navData = [
-        {
-            _id: 1,
-            title: 'product',
-            rightIcon:<i className="fa-solid fa-chevron-right nav-icon"  ></i>,
-            subNav: [
-                {
-                    _id: 11,
-                    navId:1,
-                    subNavTitle: 'add product',
-                    routePath:'/add-product'
-                },
+        // {
+        //     _id: 1,
+        //     title: 'product',
+        //     rightIcon:<i className="fa-solid fa-chevron-right nav-icon"  ></i>,
+        //     subNav: [
+        //         {
+        //             _id: 11,
+        //             navId:1,
+        //             subNavTitle: 'add product',
+        //             routePath:'/add-product'
+        //         },
 
-                {
-                    _id: 12,
-                    navId:1,
-                    subNavTitle: 'product list',
-                    routePath:'/product-list'
-                }
-            ]
-        },
+        //         {
+        //             _id: 12,
+        //             navId:1,
+        //             subNavTitle: 'product list',
+        //             routePath:'/product-list'
+        //         }
+        //     ]
+        // },
 
-        {
-            _id: 2,
-            title: 'post',
-            rightIcon:<i className="fa-solid fa-chevron-right nav-icon"  ></i>,
-            subNav: [
-                {
-                    _id: 11,
-                    navId: 2,
-                    subNavTitle: 'add post',
-                    routePath:''
-                },
+        // {
+        //     _id: 2,
+        //     title: 'post',
+        //     rightIcon:<i className="fa-solid fa-chevron-right nav-icon"  ></i>,
+        //     subNav: [
+        //         {
+        //             _id: 11,
+        //             navId: 2,
+        //             subNavTitle: 'add post',
+        //             routePath:''
+        //         },
 
-                {
-                    _id: 12,
-                    navId: 2,
-                    subNavTitle: 'post list',
-                    routePath:''
-                }
-            ]
-        },
+        //         {
+        //             _id: 12,
+        //             navId: 2,
+        //             subNavTitle: 'post list',
+        //             routePath:''
+        //         }
+        //     ]
+        // },
 
-        {
-            _id: 3,
-            title: 'Slide Image',
-            rightIcon:<i className="fa-solid fa-chevron-right nav-icon"  ></i>,
-            subNav: [
-                {
-                    _id: 31,
-                    navId: 3,
-                    subNavTitle: 'add slide-image',
-                    routePath:'/add-slide-image'
-                },
+        // {
+        //     _id: 3,
+        //     title: 'Slide Image',
+        //     rightIcon:<i className="fa-solid fa-chevron-right nav-icon"  ></i>,
+        //     subNav: [
+        //         {
+        //             _id: 31,
+        //             navId: 3,
+        //             subNavTitle: 'add slide-image',
+        //             routePath:'/add-slide-image'
+        //         },
 
-                {
-                    _id: 32,
-                    navId: 3,
-                    subNavTitle: 'slide-image list',
-                    routePath:'/slide-image-list'
-                }
-            ]
-        }
+        //         {
+        //             _id: 32,
+        //             navId: 3,
+        //             subNavTitle: 'slide-image list',
+        //             routePath:'/slide-image-list'
+        //         }
+        //     ]
+        // }
 
     ]
 
@@ -74,8 +76,14 @@ const AdminSidebar = () => {
     const [show, setShow] = useState(false)
     const [navigation, setNavigation] = useState(navData)
     const [previousNavId,setPreviousNavId] = useState(null)
+    let test = 0
 
+    useEffect(()=>{
+        allUserRole && setNavigation(allUserRole.data)
+        console.log('good to go',test)
+    },[allUserRole, test])
 
+    
     // useEffect(() => {
     //     showChildBar()
     // }, [])
@@ -89,7 +97,8 @@ const AdminSidebar = () => {
         setShow(true)
     }
 
-    let showHandle = (navId)=>{   
+    let showHandle = (navId)=>{  
+        test = test+1 
         if(show == false){
             setShow(!show)
         }
@@ -131,9 +140,9 @@ const AdminSidebar = () => {
                 <p>Admin Dashboard</p>
 
                 {
-                    navigation.map((nav,index) => (
+                    allUserRole && navigation.map((nav,index) => (
                         <ul key={nav._id}>
-                            <li className='product-button'  > <span onClick={()=>showHandle(nav._id)} > {nav.title} {nav.rightIcon} </span> 
+                            <li className='product-button'  > <span onClick={()=>showHandle(nav._id)} > {nav.title} <i className={nav.rightIcon} ></i></span> 
                                 <ul className='childNav' >
                                     {
                                     

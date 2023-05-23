@@ -2,7 +2,7 @@ import AdminSidebar from "../../adminSideBar/AdminSidebar"
 import Multiselect from 'multiselect-react-dropdown';
 import { useGetAllMenusQuery } from "../../../../features/manageMenuApi"
 import { useGetAllPermissionQuery } from "../../../../features/permissionApi"
-import { useAddNewRoleMutation, useGetAllRoleQuery, useDeleteRoleMutation, useUpdateRoleMutation } from "../../../../features/roleApi"
+import { useAddNewRoleMutation, useGetAllRoleQuery, useDeleteRoleMutation, useUpdateRoleMutation, useGetAllRoleByUserRoleQuery } from "../../../../features/roleApi"
 import { toast } from 'react-toastify'
 import { useState, useEffect } from "react"
 import Swal from 'sweetalert2'
@@ -32,11 +32,13 @@ const Role = () => {
     const [verification, setVerification] = useState(initialVerificationData)
     const [modalShow, setModalShow] = useState(false)
     const [editItem, setEditItem] = useState({})
+    const [permissionOption, setPermissionOption] = useState([])
 
     const { data: allMenu, error: menuerror, isLoading: menuLoading } = useGetAllMenusQuery()
     const { data: allPermission, error: permissionError, isLoading: permissionIsLoading } = useGetAllPermissionQuery()
     const { data: allRole, error: roleError, isLoading: loadingError } = useGetAllRoleQuery()
-    // console.log(allRole)
+    const{data:allUserRole,error:userRoleError,isLoading:userRoleLoading} = useGetAllRoleByUserRoleQuery()
+    // console.log(allUserRole)
 
 
     // useEffect(()=>{
@@ -157,6 +159,25 @@ const Role = () => {
         setEditItem((state)=>({...state,permission:updatedPermission,menu:data}))
         console.log(updatedPermission)
    } 
+
+   const filterPermission = (data)=>{
+    let filteredPermission = []
+    data.map((item)=>{
+        item.subNav.map((sub)=>{
+            filteredPermission.push(sub)
+            
+        })
+    })
+    setPermissionOption(filteredPermission)
+    console.log(permissionOption)
+    setRole((state)=>({...state,menu:data}))
+    // setRole({ ...role, menu: data })
+   }
+
+    // const menuRemove = (data)=>{
+
+    //     setRole((state)=>({...state,menu:data}))
+    // }
 
 
     let options = [{ name: 'rokon', _id: '1' }, { name: 'asif', _id: '2' }]
@@ -325,9 +346,24 @@ const Role = () => {
                                                         options={allMenu && allMenu.data}
                                                         displayValue="title"
                                                         onKeyPressFn={function noRefCheck() { }}
-                                                        onRemove={function noRefCheck() { }}
+                                                        onRemove={(data)=> filterPermission(data)}
                                                         onSearch={function noRefCheck() { }}
-                                                        onSelect={(data) => setRole({ ...role, menu: data })}
+                                                        onSelect={(data) => filterPermission(data) }
+                                                    />
+                                                    {verification.menuError && <small className="text-danger">{verification.menuError}</small>}
+                                                </div>
+
+                                                <div className="form-group mt-3">
+                                                    <label >Select Permission</label>
+                                                    <Multiselect
+                                                        isObject={true}
+                                                        // singleSelect={true} 
+                                                        options={permissionOption}
+                                                        displayValue="subNavTitle"
+                                                        onKeyPressFn={function noRefCheck() { }}
+                                                        onRemove={(data) => setRole({ ...role, givenPermission: data })}
+                                                        onSearch={function noRefCheck() { }}
+                                                        onSelect={(data) => setRole({ ...role, givenPermission: data })}
                                                     />
                                                     {verification.menuError && <small className="text-danger">{verification.menuError}</small>}
                                                 </div>
