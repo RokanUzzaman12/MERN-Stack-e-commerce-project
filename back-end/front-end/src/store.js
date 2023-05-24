@@ -6,6 +6,7 @@ import {manageMenuApi} from './features/manageMenuApi'
 import {permissionApi} from './features/permissionApi'
 import {roleApi} from './features/roleApi'
 import cartSlice from './features/cartSlice'
+import sideBarSlice from './features/sideBarSlice'
 import authSlice from './features/authSlice';
 import {authUserApi} from './features/authApi'
 
@@ -20,6 +21,7 @@ const store = configureStore({
     [authUserApi.reducerPath]:authUserApi.reducer,
     cartSlice,
     authSlice,
+    sideBarSlice,
   },
   middleware:(getDefaultMiddleware)=>getDefaultMiddleware().concat(
     productApi.middleware,
