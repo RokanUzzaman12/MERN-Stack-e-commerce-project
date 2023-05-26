@@ -8,7 +8,7 @@ import './adminSidebar.css'
 const AdminSidebar = () => {
     const dispatch = useDispatch()
     const allRoleMenu = useSelector((state)=>state.sideBarSlice)
-    console.log("test",allRoleMenu)
+    // console.log("test",allRoleMenu)
     const{data:allUserRole,error:userRoleError,isLoading:userRoleLoading} = useGetAllRoleByUserRoleQuery()
     // console.log(allUserRole)
 
@@ -24,7 +24,6 @@ const AdminSidebar = () => {
         if(allRoleMenu.navData.length==0){
             allUserRole && dispatch(addData(allUserRole.data))
         }
-        
         
     },[allUserRole])
 
@@ -63,7 +62,7 @@ const AdminSidebar = () => {
                                     {
                                     
                                     allRoleMenu.show?nav.subNav.map((item) => (
-                                      <li key={item._id}> <Link to={item.routePath} onClick={()=>handelSubNavMenu()} className='childNavIdem' key={item._id} >{item.subNavTitle} </Link> </li>   
+                                      <li key={item._id}> <span><i className="fa-regular fa-hand-point-right"></i></span> <Link to={item.routePath} onClick={()=>handelSubNavMenu()} className='childNavIdem' key={item._id} >{item.subNavTitle} </Link> </li>   
                                     )):''
                                     
                                     }

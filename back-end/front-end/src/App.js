@@ -16,6 +16,9 @@ import ProductDetails from './components/admin/product/productDetails/ProductDet
 import EditProduct from './components/admin/product/editProduct/EditProduct';
 import Permission from './components/admin/manage-admin/permission/Permission';
 import Menu from './components/admin/manage-admin/menu/Menu';
+import AdminSignUp from './components/admin/adminAuth/AdminSignUp';
+import AdminLogIn from './components/admin/adminAuth/AdminLogIn';
+import AdminAuthProtect from './components/auth/AdminAuthProtect';
 import ProductDetailsForClient from './components/productDetails/ProductDetailsForClient';
 import AddNewSlideImage from './components/admin/slideImage/addSlideImage/AddNewSliderImage';
 import ImageList from './components/admin/slideImage/slideImageList/ImageList';
@@ -50,16 +53,22 @@ function App() {
           <Route path={routerName.cart} element={<Cart/>}/>
         </Route>
 
-        <Route path= {routerName.addProduct} element = {<AddProducts/>}/>
-        <Route path={routerName.productList} element = {<ProductList/>} />
-        <Route path={routerName.addSlideImage} element = {<AddNewSlideImage/>} />
-        <Route path={routerName.slideImageList} element = {<ImageList/>} />
-        <Route path={routerName.permission} element = {<Permission/>} />
-        <Route path={routerName.menu} element = {<Menu/>} />
-        <Route path={routerName.role} element = {<Role/>}/>
-        <Route path={routerName.admin} element={<AdminIndex/>} />
-        <Route path={`${routerName.productDetailsById}/:productId`} element={<ProductDetails/>} />
-        <Route path={`${routerName.editProductById}/:productId`} element = {<EditProduct/>} />
+        <Route element={<AdminAuthProtect/>}>
+          <Route path={routerName.menu} element = {<Menu/>} />
+          <Route path= {routerName.addProduct} element = {<AddProducts/>}/>
+          <Route path={routerName.productList} element = {<ProductList/>} />
+          <Route path={routerName.addSlideImage} element = {<AddNewSlideImage/>} />
+          <Route path={routerName.slideImageList} element = {<ImageList/>} />
+          <Route path={routerName.permission} element = {<Permission/>} />
+          <Route path={routerName.role} element = {<Role/>}/>
+          <Route path={routerName.admin} element={<AdminIndex/>} />
+          <Route path={`${routerName.productDetailsById}/:productId`} element={<ProductDetails/>} />
+          <Route path={`${routerName.editProductById}/:productId`} element = {<EditProduct/>} />
+        </Route>
+
+        <Route path={routerName.adminSignUp} element = {<AdminSignUp/>} />
+        <Route path={routerName.adminLogIn} element = {<AdminLogIn/>} />
+        
         <Route path="*" element={<NotFound/>}/>
       </Routes>
     </div>

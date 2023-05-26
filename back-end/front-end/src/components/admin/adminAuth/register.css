@@ -1,0 +1,15 @@
+.cart-speaceing{
+    height: 500px;
+    width: 90%;
+    margin-top: 100px;
+}
+
+.password-field{
+    position: relative;
+}
+.eye {
+    position: absolute;
+    top: 6px;
+    right: 15px;
+    cursor: pointer;
+}

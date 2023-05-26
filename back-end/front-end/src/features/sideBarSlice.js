@@ -15,41 +15,51 @@ const sideBarSlice = createSlice({
     initialState,
     reducers:{
         showHandle:(state,payload)=>{
-
-            
-           
-                if(state.show == false){
-                    state.show = true
+                // if(state.show == false){
+                //     state.show = true
+                // }
+            if(!state.previousNavId){
+                state.show = !state.show
+            }else{
+                if(state.previousNavId && state.previousNavId === payload.payload.navId){
+                    state.show = !state.show
                 }
+            }
             
-
             let tempData = _.cloneDeep(payload.payload.navData) 
             
             let subNavIndex = tempData.findIndex((temp)=>temp._id == payload.payload.navId)
     
-    
+
     
             tempData.map((item)=>{
                 
                 if(item._id == payload.payload.navId){
                     item.subNav = tempData[subNavIndex].subNav
-                    item.rightIcon = "fa-solid fa-chevron-down nav-icon" 
+                    if(state.show){
+                        item.rightIcon = "fa-solid fa-chevron-down nav-icon" 
+                    }else{
+                        item.rightIcon = "fa-solid fa-chevron-right nav-icon" 
+                    }
+                    
                 }else{
                     item.subNav = []
                     item.rightIcon = "fa-solid fa-chevron-right nav-icon" 
                 }
             })
+
+
     
-            if(state.previousNavId && state.previousNavId == payload.payload.navId){
+            // if( state.previousNavId && state.previousNavId == payload.payload.navId){
                 
-                state.show = !state.show
-                if(state.show == false){
-                    tempData[subNavIndex].rightIcon = "fa-solid fa-chevron-down nav-icon" 
-                }else{
-                    tempData[subNavIndex].rightIcon = "fa-solid fa-chevron-right nav-icon" 
-                }
+            //     state.show = !state.show
+            //     if(state.show == false){
+            //         tempData[subNavIndex].rightIcon = "fa-solid fa-chevron-down nav-icon" 
+            //     }else{
+            //         tempData[subNavIndex].rightIcon = "fa-solid fa-chevron-right nav-icon" 
+            //     }
                 
-            }
+            // }
             
             state.navData = tempData
             state.previousNavId = payload.payload.navId

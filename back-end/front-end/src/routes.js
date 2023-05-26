@@ -19,7 +19,11 @@ const router = {
     permission:'/permission',
     menu:'/menu',
     role:'/role',
-    test:`/test`
+
+    // Admin Auth
+    adminSignUp:'/admin/sign-up',
+    adminLogIn:'/admin/log-in'
+
 }
 
 export default router

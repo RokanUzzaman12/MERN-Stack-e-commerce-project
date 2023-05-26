@@ -1,8 +1,9 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 import baseUrlWithHeaders from "../baseUrlWithHeaders"
+import baseUrlForAdmin from "../baseUrlForAdmin"
 export const roleApi = createApi({
     reducerPath:'roleApi',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:5000',}),
+    baseQuery:fetchBaseQuery(baseUrlForAdmin),
     tagTypes:'Role',
     endpoints:(builder)=>({
 
