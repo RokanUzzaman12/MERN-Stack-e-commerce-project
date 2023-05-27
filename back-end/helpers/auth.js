@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken')
+const ErrorResponse = require('./customError')
+const roleModel = require('../models/roleModel')
 exports.checkLogin = async(req,res,next)=>{
 
     try{
@@ -18,15 +20,14 @@ exports.checkLogin = async(req,res,next)=>{
     }
 }
 
-exports.checkAdminLogin = async(req,res,next)=>{
+exports.checkAdminPermission = async(req,res,next)=>{
 
     try{
-        const {adminAuthorization} = req.headers
-        console.log(adminAuthorization) 
-        const token = adminAuthorization.split(' ')[1]
+        
+        const {adminauthorization} = req.headers
+        const token = adminauthorization.split(' ')[1]
         const decoded = jwt.verify(token,'secrate-key')
         req.userInfo = decoded
-
         next()
     }catch(err){
         console.log('err')
@@ -35,6 +36,20 @@ exports.checkAdminLogin = async(req,res,next)=>{
             msg:'Please login again'
         })
     }
+}
+
+
+exports.checkPermission = (data)=>{
+
+    return async(req,res,next)=>{
+        console.log(data)
+        let role = await roleModel.find()
+        .select('givenPermission')
+        .populate({path:'givenPermission'})
+        console.log(role)
+        next()
+    }
+
 }
 
 exports.verifyEveryTime = async(req,res,next)=>{
