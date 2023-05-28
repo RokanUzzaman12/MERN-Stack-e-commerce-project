@@ -22,7 +22,8 @@ const router = {
 
     // Admin Auth
     adminSignUp:'/admin/sign-up',
-    adminLogIn:'/admin/log-in'
+    adminLogIn:'/admin/log-in',
+    manageAdmin:'/manage/admin'
 
 }
 

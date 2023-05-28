@@ -31,6 +31,8 @@ exports.createAdmin = (async(req,res,next)=>{
 exports.fetchAllAdmin = (async(req,res,next)=>{
     try{
         let result = await adminModel.find()
+        .populate({path:'role'})
+        .sort({create:-1})
         res.status(200).send({
             type:'success',
             msg:'Data Fetched Successfully',
@@ -47,12 +49,16 @@ exports.logIn = (async(req,res,next)=>{
 
         const {email,password} = req.body
         const adminInfo = await adminModel.findOne({email:email})
+        .populate({path:'role'})
+        console.log(adminInfo)
         bcrypt.compare(password, adminInfo.password, function(err, result) {
             if(result){
                 let token = jwt.sign({
                     email:adminInfo.email,
                     firstName:adminInfo.firstName,
-                    lastName:adminInfo.lastName
+                    lastName:adminInfo.lastName,
+                    role:adminInfo.role.name,
+                    test:'tee'
                 },
                 'secrate-key',
                 {
@@ -80,5 +86,32 @@ exports.logIn = (async(req,res,next)=>{
     }catch(err){
         console.log(err)
         res.status(500).send("Server Error")
+    }
+})
+
+exports.updateRole = (async(req,res,next)=>{
+    try{
+        let adminId = req.params.id
+        const {firstName,email,role} = req.body
+
+        let editRole = await adminModel.findById(adminId)
+        editRole.firstName = firstName
+        editRole.email = email
+        editRole.role = role
+
+        await editRole.save()
+
+        let result = await adminModel.findById(adminId)
+        .populate({path:'role'})
+
+        res.status(200).send({
+            type:'success',
+            msg:'Data updated successfully',
+            data:result
+        })
+
+    }catch(err){
+        console.log(err)
+        res.status(500).send('Server Error')
     }
 })

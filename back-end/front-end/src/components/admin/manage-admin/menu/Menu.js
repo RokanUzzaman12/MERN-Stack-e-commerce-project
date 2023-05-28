@@ -18,7 +18,8 @@ const Menu = ()=>{
     const [modalShow,setModalShow] = useState(false)
 
     
-    const {data,error,isLoading} = useGetAllMenusQuery()
+    const {data,errors,isLoading} = useGetAllMenusQuery()
+    console.log(errors)
     const [addNew] = useAddNewMenuMutation()
     const [updateMenu] = useUpdateMenuMutation()
     const [deleteData] = useDeleteMenuMutation()

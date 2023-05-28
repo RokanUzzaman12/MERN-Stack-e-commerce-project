@@ -5,7 +5,7 @@ exports.checkLogin = async(req,res,next)=>{
 
     try{
         const {authorization} = req.headers
-        console.log(authorization) 
+        
         const token = authorization.split(' ')[1]
         const decoded = jwt.verify(token,'secrate-key')
         req.userInfo = decoded
@@ -42,12 +42,25 @@ exports.checkAdminPermission = async(req,res,next)=>{
 exports.checkPermission = (data)=>{
 
     return async(req,res,next)=>{
-        console.log(data)
-        let role = await roleModel.find()
+        console.log(req.userInfo)
+        let role = await roleModel.findOne({name:req.userInfo.role})
         .select('givenPermission')
         .populate({path:'givenPermission'})
-        console.log(role)
-        next()
+        
+        let permission = []
+        
+            role.givenPermission.map((p)=>{
+                permission.push(p.subNavTitle.toUpperCase())
+            })
+     
+            let hasPermission = permission.includes(data.toUpperCase())
+            if(hasPermission){
+                next()
+            }else{
+               new ErrorResponse('You have not this permission',403)
+            }
+        
+        
     }
 
 }
@@ -55,7 +68,6 @@ exports.checkPermission = (data)=>{
 exports.verifyEveryTime = async(req,res,next)=>{
     try{
         const {authorization} = req.headers
-        console.log(authorization) 
         const token = authorization.split(' ')[1]
         const decoded = jwt.verify(token,'secrate-key')
         if(decoded){

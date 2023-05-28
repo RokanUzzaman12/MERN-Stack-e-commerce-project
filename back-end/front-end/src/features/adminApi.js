@@ -28,16 +28,16 @@ export const adminApi = createApi({
                 method:'POST',
                 body:adminData
             })
-        })
+        }),
 
-        // updatePermission : builder.mutation({
-        //     query : (permissionData)=>({
-        //         url:`/permission/${permissionData._id}`,
-        //         method:'PUT',
-        //         body:permissionData
-        //     }),
-        //     invalidatesTags:['Permission']
-        // }),
+        updateAdmin : builder.mutation({
+            query : (adminData)=>({
+                url:`/admin/${adminData._id}`,
+                method:'PUT',
+                body:adminData
+            }),
+            invalidatesTags:['Admin']
+        }),
 
         // deletePermission : builder.mutation({
         //     query:(permissionId)=>({
@@ -54,4 +54,4 @@ export const adminApi = createApi({
 
 })
 
-export const {useAddNewAdminMutation,useGetAllAdminQuery, useAdminLogInMutation} = adminApi
+export const {useAddNewAdminMutation,useGetAllAdminQuery, useAdminLogInMutation,useUpdateAdminMutation} = adminApi

@@ -4,7 +4,7 @@ const {checkAdminPermission, checkPermission} = require('../../helpers/auth')
 const {addNewModal,fetchAllMenu,deleteMenu,updateMenu} = require('../../controllers/menu/menuController')
 
 router.post('/',addNewModal)
-router.get('/',checkPermission('good to go'),fetchAllMenu)
+router.get('/',[checkAdminPermission,checkPermission('Manage Menus')],fetchAllMenu)
 router.put('/:id',updateMenu)
 router.delete('/:id',deleteMenu)
 
