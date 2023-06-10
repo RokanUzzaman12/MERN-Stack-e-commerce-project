@@ -50,7 +50,7 @@ exports.logIn = (async(req,res,next)=>{
         const {email,password} = req.body
         const adminInfo = await adminModel.findOne({email:email})
         .populate({path:'role'})
-        console.log(adminInfo)
+        // console.log(adminInfo)
         bcrypt.compare(password, adminInfo.password, function(err, result) {
             if(result){
                 let token = jwt.sign({

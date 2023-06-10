@@ -17,7 +17,7 @@ const Permission = ()=>{
         subNavTitle:'',
         navId:'',
         routePath:'',
-        isMenu:''
+        isMenu:false
     }
 
     let initialVerificationData = {
@@ -81,7 +81,8 @@ const Permission = ()=>{
     }
     const submitFrom = (e)=>{
         e.preventDefault()
-
+        setVerification(initialVerificationData)
+        console.log(permission)
         if(permission.subNavTitle === '' || permission.navId === '' || permission.routePath === ''){
             if(permission.subNavTitle === ''){
                 setVerification((state)=>({...state,titleError:"Title Is Required"}))
@@ -160,12 +161,10 @@ const Permission = ()=>{
                                                         //singleSelect={true} 
                                                         options={allMenu && allMenu.data}
                                                         displayValue="title"
-                                                        
                                                         selectedValues={[editItem.navId]}
                                                         onKeyPressFn={function noRefCheck(){}}
                                                         onRemove={function noRefCheck(){}}
                                                         onSearch={function noRefCheck(){}}
-                                                        
                                                         onSelect={(data)=>setEditItem({...editItem,navId:data[0]._id})}
                                                     />
                                                     {verification.menuError && <small className="text-danger">{verification.menuError}</small>}
@@ -186,14 +185,14 @@ const Permission = ()=>{
                                                     <label >Do you want to show it in sidebar</label>
                                                     
                                                     <div className="form-check">
-                                                        <input className="form-check-input" type="radio" name='isMenu' value='no' onChange={(e)=>setEditItem({...editItem,isMenu:e.target.value})} />
+                                                        <input className="form-check-input" type="radio" name='isMenu' checked={!editItem.isMenu} value='no' onChange={(e)=>setEditItem({...editItem,isMenu:false})} />
                                                         <label className="form-check-label" >
                                                             No
                                                         </label>
                                                     </div>
 
                                                     <div className="form-check">
-                                                        <input className="form-check-input" type="radio" name='isMenu' value='yes' onChange={(e)=>setEditItem({...editItem,isMenu:e.target.value})} />
+                                                        <input className="form-check-input" type="radio" name='isMenu' checked={editItem.isMenu} value='yes' onChange={(e)=>setEditItem({...editItem,isMenu:true})} />
                                                         <label className="form-check-label">
                                                             Yes
                                                         </label>
@@ -270,14 +269,14 @@ const Permission = ()=>{
                                                     <label >Do you want to show it in sidebar</label>
                                                     
                                                     <div className="form-check">
-                                                        <input className="form-check-input" type="radio" name='isMenu' value='no' onChange={(e)=>setPermission({...permission,isMenu:e.target.value})} />
+                                                        <input className="form-check-input" type="radio" name='isMenu' checked={!editItem.isMenu} value='no' onChange={(e)=>setPermission({...permission,isMenu:false})} />
                                                         <label className="form-check-label" >
                                                             No
                                                         </label>
                                                     </div>
 
                                                     <div className="form-check">
-                                                        <input className="form-check-input" type="radio" name='isMenu' value='yes' onChange={(e)=>setPermission({...permission,isMenu:e.target.value})} />
+                                                        <input className="form-check-input" type="radio" name='isMenu' checked={editItem.isMenu} value='yes' onChange={(e)=>setPermission({...permission,isMenu:true})} />
                                                         <label className="form-check-label"  >
                                                             Yes
                                                         </label>

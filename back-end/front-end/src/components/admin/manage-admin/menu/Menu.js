@@ -1,6 +1,8 @@
 import AdminSidebar from "../../adminSideBar/AdminSidebar"
 import {useGetAllMenusQuery,useAddNewMenuMutation, useDeleteMenuMutation, useUpdateMenuMutation} from "../../../../features/manageMenuApi"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import routeNames from "../../../../routes"
 import { toast } from 'react-toastify'
 import Swal from 'sweetalert2'
 import { Modal } from "react-bootstrap"
@@ -16,10 +18,13 @@ const Menu = ()=>{
    
     const [show,setShow] = useState(false)
     const [modalShow,setModalShow] = useState(false)
-
+    const navigate = useNavigate()
     
-    const {data,errors,isLoading} = useGetAllMenusQuery()
-    console.log(errors)
+    const {data,error,isLoading} = useGetAllMenusQuery()
+    if( error &&  error.data.type === "permissionError"){
+        toast.warning(error.data.msg)
+        navigate(routeNames.admin)
+    }
     const [addNew] = useAddNewMenuMutation()
     const [updateMenu] = useUpdateMenuMutation()
     const [deleteData] = useDeleteMenuMutation()

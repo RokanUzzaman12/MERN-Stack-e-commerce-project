@@ -1,16 +1,16 @@
 const permissionModel = require('../../models/permissionModel')
 const menuModel = require('../../models/menuModel')
 
-exports.addNewModal = (async(req,res,next)=>{
+exports.addNewPermission = (async(req,res,next)=>{
     try{
-        const { subNavTitle, navId, isMenu,routePath } = req.body
+        const { subNavTitle, navId, isMenu,routePath } = req.body;
+        console.log(req.body)
         const addNew = new permissionModel({
             subNavTitle,
             navId,
-            isMenu,
             routePath
         })
-        await addNew.save()
+        // await addNew.save()
         
         const selectedMenu = await menuModel.findById(navId)
         selectedMenu.subNav.push(addNew._id)

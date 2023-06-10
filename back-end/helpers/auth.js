@@ -52,12 +52,18 @@ exports.checkPermission = (data)=>{
             role.givenPermission.map((p)=>{
                 permission.push(p.subNavTitle.toUpperCase())
             })
-     
+            console.log(permission)
+           
             let hasPermission = permission.includes(data.toUpperCase())
+            
             if(hasPermission){
                 next()
             }else{
-               new ErrorResponse('You have not this permission',403)
+            //    new ErrorResponse('You have not this permission',403)
+            return res.status(400).send({
+                type:'permissionError',
+                msg:"You don't have the Permission to visit this route"
+            })
             }
         
         

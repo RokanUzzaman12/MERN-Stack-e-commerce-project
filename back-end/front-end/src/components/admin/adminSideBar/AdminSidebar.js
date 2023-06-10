@@ -62,7 +62,12 @@ const AdminSidebar = () => {
                                     {
                                     
                                     allRoleMenu.show?nav.subNav.map((item) => (
-                                      <li key={item._id}> <span><i className="fa-regular fa-hand-point-right"></i></span> <Link to={item.routePath} onClick={()=>handelSubNavMenu()} className='childNavIdem' key={item._id} >{item.subNavTitle} </Link> </li>   
+                                        
+                                      <li key={item._id}>
+                                        {item.isMenu && <span><span><i className="fa-regular fa-hand-point-right"></i></span> <Link to={item.routePath} onClick={()=>handelSubNavMenu()} className='childNavIdem' key={item._id} >{item.subNavTitle} </Link> </span> }
+                                         
+                                         
+                                        </li>   
                                     )):''
                                     
                                     }
