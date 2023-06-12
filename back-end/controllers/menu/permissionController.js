@@ -1,5 +1,6 @@
 const permissionModel = require('../../models/permissionModel')
 const menuModel = require('../../models/menuModel')
+const roleModel = require('../../models/roleModel')
 
 exports.addNewPermission = (async(req,res,next)=>{
     try{
@@ -10,7 +11,7 @@ exports.addNewPermission = (async(req,res,next)=>{
             navId,
             routePath
         })
-        // await addNew.save()
+        await addNew.save()
         
         const selectedMenu = await menuModel.findById(navId)
         selectedMenu.subNav.push(addNew._id)

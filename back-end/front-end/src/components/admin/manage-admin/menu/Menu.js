@@ -1,5 +1,9 @@
+import { useEffect } from "react"
 import AdminSidebar from "../../adminSideBar/AdminSidebar"
 import {useGetAllMenusQuery,useAddNewMenuMutation, useDeleteMenuMutation, useUpdateMenuMutation} from "../../../../features/manageMenuApi"
+// import {checkPermission} from "../../../../features/sideBarSlice"
+import {useGetAllRoleByUserRoleQuery} from "../../../../features/roleApi"
+import {useSelector,useDispatch } from "react-redux"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import routeNames from "../../../../routes"
@@ -15,7 +19,13 @@ const Menu = ()=>{
     const [editItem, setEditItem] = useState({
         title:''
     })
-   
+
+    const dispatch = useDispatch()
+    const slice = useSelector((state)=>state.sideBarSlice)
+    const checkPermission = ()=>{
+        console.log(slice)
+    }
+    const{data:allUserRole,error:userRoleError,isLoading:userRoleLoading} = useGetAllRoleByUserRoleQuery()
     const [show,setShow] = useState(false)
     const [modalShow,setModalShow] = useState(false)
     const navigate = useNavigate()
@@ -91,11 +101,28 @@ const Menu = ()=>{
     const saveEditedData = (e)=>{
         e.preventDefault()
         updateMenu(editItem).then((response)=>{
-            if(response.data.type === 'success'){
-                toast.success(response.data.msg)
+            if(response.error){
+                if(response.error.data.type === 'permissionError'){
+                    toast.warning(response.error.data.msg)
+                }
+            }else{
+                if(response.data.type === 'success'){
+                    toast.success(response.data.msg)
+                }
             }
+            
+
+            
         })
     }
+    
+    // useEffect(()=>{
+    //     let x = null
+    //     if(allUserRole){
+    //        x = dispatch(checkPermission('test permission'))
+    //     }  
+    //     console.log(x)
+    // },[allUserRole])
 
     return (
         <div className="margin-top-right">
@@ -217,6 +244,7 @@ const Menu = ()=>{
                                             <td>{item.order}</td>
                                             <td>Link</td>
                                             <td className="text-center">
+                                                {checkPermission('test')}
                                                 <span onClick={()=>handelModalShow(item)} className=" eye-edit"> <i className="fa fa-pencil"></i> </span>
                                                 <span className=" eye-delete" onClick={()=>remove(item._id)}><i className="fa fa-trash"></i></span>
                                             </td>

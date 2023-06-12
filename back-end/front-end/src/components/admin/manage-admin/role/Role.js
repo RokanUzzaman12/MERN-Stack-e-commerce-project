@@ -109,7 +109,6 @@ const Role = () => {
     const handelShowModal = (data) => {
         setModalShow(true)
         setEditItem(data)
-        
     }
 
     const selectedItem = (data)=>{

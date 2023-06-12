@@ -155,7 +155,7 @@ const Permission = ()=>{
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <div className="form-group mt-3">
-                                                    <label >Brand Name</label>
+                                                    <label >Menu Name</label>
                                                     <Multiselect
                                                         isObject={true}
                                                         //singleSelect={true} 
@@ -239,7 +239,7 @@ const Permission = ()=>{
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <div className="form-group mt-3">
-                                                    <label >Brand Name</label>
+                                                    <label >Menu Name</label>
                                                     <Multiselect
                                                         isObject={true}
                                                         singleSelect={true} 

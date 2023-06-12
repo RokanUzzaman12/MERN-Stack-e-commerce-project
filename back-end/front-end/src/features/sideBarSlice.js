@@ -66,7 +66,9 @@ const sideBarSlice = createSlice({
         },
         addData:(state,payload)=>{
             state.navData = payload.payload
+            
         },
+
 
         handelSubNav:(state,payload)=>{
             state.show = true
