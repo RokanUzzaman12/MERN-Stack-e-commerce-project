@@ -21,10 +21,8 @@ const Menu = ()=>{
     })
 
     const dispatch = useDispatch()
-    const slice = useSelector((state)=>state.sideBarSlice)
-    const checkPermission = ()=>{
-        console.log(slice)
-    }
+    const sideBarSliceData = useSelector((state)=>state.sideBarSlice)
+
     const{data:allUserRole,error:userRoleError,isLoading:userRoleLoading} = useGetAllRoleByUserRoleQuery()
     const [show,setShow] = useState(false)
     const [modalShow,setModalShow] = useState(false)
@@ -43,6 +41,26 @@ const Menu = ()=>{
         title:'',
     }
     const [menu,setMenu] = useState(menuData)
+
+    const checkPermission = (permissionName)=>{
+        let result = false
+        sideBarSliceData.navData.map((item)=>{
+            
+            item.subNav.map((sub)=>{ 
+                if(sub.subNavTitle.toUpperCase() == permissionName.toUpperCase()){
+                    console.log(sub.subNavTitle.toUpperCase() + " ------ " + permissionName.toUpperCase())
+                    result = true
+                }
+            })
+        })
+        
+        if(result){
+            return true
+        }else{
+            return false
+        }
+        
+    }
 
     const submitFrom = (e)=>{
         e.preventDefault()
@@ -219,8 +237,7 @@ const Menu = ()=>{
                                 </div>
                                 
                                 <div className="col-md-6 d-flex justify-content-end">
-                                    <button onClick={()=>setShow(true)} className="btn btn-primary">Create Menu</button>
-                                    
+                                    {checkPermission('Add New Menu')?<button onClick={()=>setShow(true)} className="btn btn-primary">Create Menu</button>:''}
                                 </div>
                             </div>
                         </div>
@@ -244,9 +261,8 @@ const Menu = ()=>{
                                             <td>{item.order}</td>
                                             <td>Link</td>
                                             <td className="text-center">
-                                                {checkPermission('test')}
-                                                <span onClick={()=>handelModalShow(item)} className=" eye-edit"> <i className="fa fa-pencil"></i> </span>
-                                                <span className=" eye-delete" onClick={()=>remove(item._id)}><i className="fa fa-trash"></i></span>
+                                                {checkPermission('edit menu')?<span onClick={()=>handelModalShow(item)} className=" eye-edit"> <i className="fa fa-pencil"></i> </span> : ''}
+                                                {checkPermission('Delete Menu')? <span className=" eye-delete" onClick={()=>remove(item._id)}><i className="fa fa-trash"></i></span> :" "} 
                                             </td>
                                         </tr>
                                     ))

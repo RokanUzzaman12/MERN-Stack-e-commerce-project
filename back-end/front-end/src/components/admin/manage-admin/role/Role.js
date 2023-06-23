@@ -101,9 +101,10 @@ const Role = () => {
         e.preventDefault()
         update(editItem).then((response)=>{
             console.log(response)
-        })
-        
-
+            if(response.data.type === 'success'){
+                toast.success(response.data.msg)
+            }
+        })   
     }
 
     const handelShowModal = (data) => {

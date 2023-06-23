@@ -3,6 +3,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import {useGetAllMenusQuery } from "../../../../features/manageMenuApi"
 import {useAddNewPermissionMutation, useGetAllPermissionQuery,useDeletePermissionMutation, useUpdatePermissionMutation} from "../../../../features/permissionApi"
 import {toast} from 'react-toastify'
+import {useSelector,useDispatch } from "react-redux"
 import { useState } from "react"
 import Swal from 'sweetalert2'
 import { Modal } from "react-bootstrap"
@@ -25,7 +26,7 @@ const Permission = ()=>{
         menuError:'',
         pathError:''
     }
-
+    const sideBarSliceData = useSelector((state)=>state.sideBarSlice)
     const [permission,setPermission] = useState(initialPermissionData)
     const [verification,setVerification] = useState(initialVerificationData)
     const [modalShow,setModalShow] = useState(false)
@@ -40,6 +41,26 @@ const Permission = ()=>{
     //     setPermission((state)=>({...state,navId:'2'}))
     //     console.log(permission)
     // }
+
+    const checkPermission = (permissionName)=>{
+        let result = false
+        sideBarSliceData.navData.map((item)=>{
+            
+            item.subNav.map((sub)=>{ 
+                if(sub.subNavTitle.toUpperCase() == permissionName.toUpperCase()){
+                    console.log(sub.subNavTitle.toUpperCase() + " ------ " + permissionName.toUpperCase())
+                    result = true
+                }
+            })
+        })
+        
+        if(result){
+            return true
+        }else{
+            return false
+        }
+        
+    }
 
     const remove = (id) => {
 
@@ -307,7 +328,7 @@ const Permission = ()=>{
                                 </div>
                                 
                                 <div className="col-md-6 d-flex justify-content-end">
-                                    <button onClick={()=>setShow(true)} className="btn btn-primary">Create Menu</button>
+                                {checkPermission('Create Permission')? <button onClick={()=>setShow(true)} className="btn btn-primary">Create Permission</button> :''}
                                 </div>
                             </div>
                          </div>
@@ -331,8 +352,9 @@ const Permission = ()=>{
                                         <td>{item.navId.title}</td>
                                         <td>{item.routePath}</td>
                                         <td className="text-center">
-                                            <span className=" eye-edit" onClick={()=>handelShowModal(item)} > <i className="fa fa-pencil"></i> </span>
-                                            <span className=" eye-delete" onClick={()=>remove(item._id)}><i className="fa fa-trash"></i></span>
+                                            {checkPermission('Edit Permission')?<span className=" eye-edit" onClick={()=>handelShowModal(item)} > <i className="fa fa-pencil"></i> </span>:''}
+                                            {checkPermission('Delete Permission')?<span className=" eye-delete" onClick={()=>remove(item._id)}><i className="fa fa-trash"></i></span>:''}
+                                            
                                         </td>
                                     </tr>
                                 ))}

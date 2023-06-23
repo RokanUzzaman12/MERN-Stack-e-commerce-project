@@ -82,7 +82,8 @@ exports.updateRole = (async(req,res,next)=>{
 exports.fetchByUserRole = (async(req,res,next)=>{
     try{
         let processedData = []
-        let result = await roleModel.findOne({name:'Admin'})
+        console.log('test',req.userInfo.role)
+        let result = await roleModel.findOne({name:req.userInfo.role})
         .populate({path:'menu'})
         .populate({path:'givenPermission'})
 
