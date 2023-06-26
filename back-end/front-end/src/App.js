@@ -10,6 +10,7 @@ import Register from './components/register/Register';
 import AboutUs from './components/static-pages/AboutUs';
 import ContactUs from './components/static-pages/ContactUs';
 import AuthProtectRoutes from './components/auth/AuthProtectRoutes';
+import Category from './components/admin/product/category/Category';
 import AddProducts from './components/admin/product/addProduct/AddProducts';
 import ProductList from './components/admin/product/productList/ProductList';
 import ProductDetails from './components/admin/product/productDetails/ProductDetails';
@@ -56,6 +57,7 @@ function App() {
 
         <Route element={<AdminAuthProtect/>}>
           <Route path={routerName.menu} element = {<Menu/>} />
+          <Route path={routerName.productCategory} element = {<Category/>} />
           <Route path= {routerName.addProduct} element = {<AddProducts/>}/>
           <Route path={routerName.productList} element = {<ProductList/>} />
           <Route path={routerName.addSlideImage} element = {<AddNewSlideImage/>} />

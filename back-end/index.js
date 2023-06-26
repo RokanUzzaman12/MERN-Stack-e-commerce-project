@@ -3,7 +3,7 @@ const express = require('express');
 require('./db/db')
 const cors  = require('cors')
 
-
+const category = require('./routes/category/categoryRoute')
 const productRoute = require('./routes/product/productRoute')
 const userRoute = require('./routes/user/userRoutes')
 const slideImageRoute = require('./routes/slide-image/slide-image-route')
@@ -25,6 +25,7 @@ app.get('/',(req,res)=>{
 
 app.use('/user',userRoute)
 app.use('/products',productRoute)
+app.use('/category',category)
 app.use('/verify',verifyRoute)
 app.use('/slide-image',slideImageRoute)
 app.use('/menu',menu)

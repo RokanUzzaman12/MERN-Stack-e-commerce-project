@@ -7,6 +7,7 @@ import {permissionApi} from './features/permissionApi'
 import {roleApi} from './features/roleApi'
 import { adminApi } from './features/adminApi';
 import { authAdminApi } from './features/authAdminApi';
+import {categoryApi} from './features/categoryApi';
 import cartSlice from './features/cartSlice'
 import sideBarSlice from './features/sideBarSlice'
 import authSlice from './features/authSlice';
@@ -23,6 +24,7 @@ const store = configureStore({
     [adminApi.reducerPath]:adminApi.reducer,
     [authAdminApi.reducerPath]:authAdminApi.reducer,
     [authUserApi.reducerPath]:authUserApi.reducer,
+    [categoryApi.reducerPath]:categoryApi.reducer,
     cartSlice,
     authSlice,
     sideBarSlice,
@@ -36,7 +38,8 @@ const store = configureStore({
     roleApi.middleware,
     adminApi.middleware,
     authAdminApi.middleware,
-    authUserApi.middleware)
+    authUserApi.middleware,
+    categoryApi.middleware)
 })
 
 export default store

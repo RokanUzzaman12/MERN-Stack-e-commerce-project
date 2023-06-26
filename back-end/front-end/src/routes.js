@@ -6,7 +6,9 @@ const router = {
     admin:'/admin',
     aboutUs:'/about-us',
     contactUs:'/contact-us',
+    // Product 
     addProduct:'/add-product',
+    productCategory:'/product-category',
     productList:'/product-list',
     productDetailsById:`/product-details`,
     editProductById:'/edit-product',

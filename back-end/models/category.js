@@ -6,6 +6,14 @@ const categorySchema = new Schema({
         type:String,
         default:null
     },
+    slug:{
+        type:String,
+        default:null,
+    },
+    order:{
+        type:Number,
+        default:0
+    },
     isTrash:{
         type:Boolean,
         default:false
