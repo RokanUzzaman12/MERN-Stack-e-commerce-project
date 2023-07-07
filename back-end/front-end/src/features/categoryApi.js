@@ -21,23 +21,23 @@ export const categoryApi = createApi({
             invalidatesTags:['Category']
         }),
 
-        // updatePermission : builder.mutation({
-        //     query : (permissionData)=>({
-        //         url:`/permission/${permissionData._id}`,
-        //         method:'PUT',
-        //         body:permissionData
-        //     }),
-        //     invalidatesTags:['Permission']
-        // }),
+        updateCategory : builder.mutation({
+            query : (categoryData)=>({
+                url:`/category/${categoryData._id}`,
+                method:'PUT',
+                body:categoryData
+            }),
+            invalidatesTags:['Category']
+        }),
 
-        // deletePermission : builder.mutation({
-        //     query:(permissionId)=>({
-        //         url:`/permission/${permissionId}`,
-        //         method:'DELETE',
+        deleteCategory : builder.mutation({
+            query:(categoryId)=>({
+                url:`/category/${categoryId}`,
+                method:'DELETE',
 
-        //     }),
-        //     invalidatesTags:['Permission']
-        // })
+            }),
+            invalidatesTags:['Category']
+        })
 
         
 
@@ -45,4 +45,4 @@ export const categoryApi = createApi({
 
 })
 
-export const {useAddNewCategoryMutation,useGetAllCategoryQuery} = categoryApi
+export const {useAddNewCategoryMutation,useGetAllCategoryQuery,useUpdateCategoryMutation,useDeleteCategoryMutation} = categoryApi
